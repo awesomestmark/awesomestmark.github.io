@@ -24,6 +24,9 @@
             text-align: right;
             margin-top: 10px;
         }
+        select {
+            padding: 5px;
+        }
         button {
             margin-top: 10px;
             padding: 10px 20px;
@@ -33,43 +36,21 @@
             border-radius: 5px;
             cursor: pointer;
         }
-        #download-link {
-            display: none;
-        }
     </style>
 </head>
 <body>
     <div class="container">
         <textarea id="text" placeholder="Enter text here"></textarea>
         <div class="select-container">
-            <select id="lang">
-                <option value="en">English</option>
-                <option value="es">Spanish</option>
-                <option value="fr">French</option>
-                <option value="de">German</option>
-                <option value="it">Italian</option>
-                <option value="ja">Japanese</option>
-                <option value="ko">Korean</option>
-                <option value="zh-CN">Chinese (Simplified)</option>
-                <option value="tl" selected>Filipino</option>
-            </select>
+            <select id="voiceSelect"></select>
         </div>
-        <button onclick="generateAudio()">Generate Audio File</button>
-        <a id="download-link" href="#" download="voiceover.mp3"></a>
+        <button onclick="speakText()">Speak Text</button>
     </div>
     <script>
-        function generateAudio() {
-            const text = document.getElementById('text').value;
-            const lang = document.getElementById('lang').value;
-            if (text.trim() === '') {
-                alert('Please enter some text.');
-                return;
-            }
-            const url = `https://translate.google.com/translate_tts?ie=UTF-8&tl=${lang}&q=${encodeURIComponent(text)}`;
-            const downloadLink = document.getElementById('download-link');
-            downloadLink.href = url;
-            downloadLink.click();
-        }
-    </script>
-</body>
-</html>
+        const synth = window.speechSynthesis;
+        const textInput = document.getElementById('text');
+        const voiceSelect = document.getElementById('voiceSelect');
+        let voices = [];
+
+        function populateVoiceList() {
+            voices = synth.getVoices();
