@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Text to Speech Tool</title>
     <style>
         body {
@@ -24,9 +26,6 @@
             text-align: right;
             margin-top: 10px;
         }
-        select {
-            padding: 5px;
-        }
         button {
             margin-top: 10px;
             padding: 10px 20px;
@@ -36,21 +35,69 @@
             border-radius: 5px;
             cursor: pointer;
         }
+        #download-link {
+            display: none;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <textarea id="text" placeholder="Enter text here"></textarea>
         <div class="select-container">
-            <select id="voiceSelect"></select>
+            <select id="lang">
+                <option value="tl" selected>Filipino</option>
+                <!-- Add more languages here if desired, e.g., <option value="en">English</option> -->
+            </select>
         </div>
-        <button onclick="speakText()">Speak Text</button>
+        <button id="generate-btn" onclick="generateAudio()" disabled>Generate Audio File</button>
+        <a id="download-link" href="#" download="voiceover.wav"></a>
     </div>
+    <script src="mespeak.js"></script>
     <script>
-        const synth = window.speechSynthesis;
-        const textInput = document.getElementById('text');
-        const voiceSelect = document.getElementById('voiceSelect');
-        let voices = [];
+        let voiceLoaded = false;
 
-        function populateVoiceList() {
-            voices = synth.getVoices();
+        // Load the Filipino voice (adjust path if necessary)
+        meSpeak.loadVoice('voices/tl.json', function(success) {
+            if (success) {
+                voiceLoaded = true;
+                document.getElementById('generate-btn').disabled = false;
+            } else {
+                alert('Failed to load the Filipino voice. Please check the voice file path.');
+            }
+        });
+
+        function generateAudio() {
+            if (!voiceLoaded) {
+                alert('Voice is still loading. Please wait.');
+                return;
+            }
+            const text = document.getElementById('text').value;
+            const lang = document.getElementById('lang').value;
+            if (text.trim() === '') {
+                alert('Please enter some text.');
+                return;
+            }
+
+            // Generate audio using meSpeak.js
+            var audioData = meSpeak.speak(text, { voice: lang, rawdata: 'base64' });
+            if (audioData) {
+                // Convert base64 to binary
+                var binary = atob(audioData);
+                var array = new Uint8Array(binary.length);
+                for (var i = 0; i < binary.length; i++) {
+                    array[i] = binary.charCodeAt(i);
+                }
+                // Create a Blob and trigger download
+                var blob = new Blob([array], { type: 'audio/wav' });
+                var url = URL.createObjectURL(blob);
+                var downloadLink = document.getElementById('download-link');
+                downloadLink.href = url;
+                downloadLink.click();
+                URL.revokeObjectURL(url);
+            } else {
+                alert('Failed to generate audio. Ensure the voice is loaded correctly.');
+            }
+        }
+    </script>
+</body>
+</html>
