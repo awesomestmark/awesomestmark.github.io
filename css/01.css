@@ -1,4 +1,4 @@
-/* === 01.css - Classic White + Black Arrows + Zen Content === */
+/* === 01.css - Classic White + Black Arrows + Balanced Spacing === */
 
 /* General Layout */
 body {
@@ -15,16 +15,17 @@ body {
   text-align: center;
 }
 
-/* Scene Container */
+/* Scene Container (adds 10% padding left and right) */
 #scene-container {
-  max-width: 800px;
-  padding: 2rem;
+  width: 80%;
+  padding: 2rem 0;
   font-size: 1.5rem;
   line-height: 1.6;
   word-wrap: break-word;
+  margin: 0 auto;
 }
 
-/* Text Styling */
+/* Text Alignment */
 #scene-container h1,
 #scene-container h2,
 #scene-container p,
@@ -32,7 +33,7 @@ body {
   text-align: center;
 }
 
-/* === Navigation Arrows (Minimal, Clean, Responsive) === */
+/* === Navigation Arrows (offset 5% from sides) === */
 .nav-arrow {
   position: fixed;
   top: 50%;
@@ -43,7 +44,6 @@ body {
   cursor: pointer;
   user-select: none;
   z-index: 1000;
-  padding: 0 10px;
   opacity: 0.5;
   transition: 
     transform 0.3s ease,
@@ -51,11 +51,11 @@ body {
 }
 
 .nav-left {
-  left: 0;
+  left: 5%;
 }
 
 .nav-right {
-  right: 0;
+  right: 5%;
 }
 
 .nav-arrow:hover {
@@ -74,11 +74,14 @@ body {
 /* Responsive Adjustments */
 @media screen and (max-width: 768px) {
   #scene-container {
-    padding: 1rem;
+    width: 90%;
     font-size: 1.2rem;
+    padding: 1rem 0;
   }
 
   .nav-arrow {
     font-size: 15vh;
+    left: 3%;
+    right: 3%;
   }
 }
