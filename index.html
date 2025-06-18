@@ -3,45 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Welcome to the Internet</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #111;
-      color: #fff;
-      margin: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: space-between;
-      height: 100vh;
-    }
-    #scene-container {
-      max-width: 800px;
-      text-align: center;
-      padding: 2rem;
-    }
-    .nav {
-      font-size: 2rem;
-      color: #0ff;
-      cursor: pointer;
-      user-select: none;
-      margin: 2rem;
-    }
-    .nav:hover {
-      color: #fff000;
-    }
-    #nav-bar {
-      display: flex;
-      justify-content: space-between;
-      width: 100%;
-      padding: 0 2rem;
-    }
-  </style>
+  <title>markantoineIRL | Interactive</title>
+  <link rel="stylesheet" href="css/01.css" />
 </head>
 <body>
   <div id="scene-container">
-    Loading...
+    <!-- Scene content loads here -->
   </div>
 
   <div id="nav-bar">
@@ -53,7 +20,7 @@
     let currentScene = 1;
 
     function loadScene(sceneNum) {
-      const fileName = sceneNum < 10 ? `scene0${sceneNum}` : `scene${sceneNum}`;
+      const fileName = sceneNum < 10 ? `0${sceneNum}` : `${sceneNum}`;
       fetch(`xml/${fileName}.xml`)
         .then(response => {
           if (!response.ok) throw new Error("Scene not found");
@@ -84,14 +51,3 @@
   </script>
 </body>
 </html>
-
-
-
-<scene>
-  <content>
-    <![CDATA[
-      <h1>WELCOME TO THE INTERNET</h1>
-      <p>You're gonna need a key.</p>
-    ]]>
-  </content>
-</scene>
