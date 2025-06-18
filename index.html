@@ -27,12 +27,12 @@
         .then(xmlString => {
           const parser = new DOMParser();
           const xml = parser.parseFromString(xmlString, "text/xml");
-          const content = xml.getElementsByTagName("content")[0].textContent;
-          document.getElementById("scene-container").innerHTML = content;
+          const content = xml.getElementsByTagName("content")[0]?.textContent || "";
+          document.getElementById("scene-container").innerHTML = content || "<p class='presence'>You are here.</p>";
           currentScene = sceneNum;
         })
         .catch(err => {
-          document.getElementById("scene-container").innerHTML = "<p>End of the line. No more scenes.</p>";
+          document.getElementById("scene-container").innerHTML = "<p class='presence'>You are here.</p>";
         });
     }
 
