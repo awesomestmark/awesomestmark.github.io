@@ -1,9 +1,9 @@
-/* Arrow Navigation - Clean, Edge-Aligned, Responsive */
+/* Navigation Arrows */
 .nav-arrow {
   position: fixed;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 20vh; /* ~20% of screen height */
+  font-size: 20vh;
   font-weight: bold;
   color: white;
   cursor: pointer;
@@ -26,4 +26,14 @@
 
 .nav-arrow:hover {
   color: red;
+}
+
+/* Zen Mode Text */
+.presence {
+  font-size: 2rem;
+  color: white;
+  text-align: center;
+  margin-top: 2rem;
+  font-style: italic;
+  opacity: 0.7;
 }
