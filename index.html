@@ -1,103 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Text to Speech Tool</title>
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .container {
-            text-align: center;
-        }
-        textarea {
-            width: 16cm;
-            height: 2cm;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        .select-container {
-            text-align: right;
-            margin-top: 10px;
-        }
-        button {
-            margin-top: 10px;
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-        #download-link {
-            display: none;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome to the Internet</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #111;
+      color: #fff;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      height: 100vh;
+    }
+    #scene-container {
+      max-width: 800px;
+      text-align: center;
+      padding: 2rem;
+    }
+    .nav {
+      font-size: 2rem;
+      color: #0ff;
+      cursor: pointer;
+      user-select: none;
+      margin: 2rem;
+    }
+    .nav:hover {
+      color: #fff000;
+    }
+    #nav-bar {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      padding: 0 2rem;
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <textarea id="text" placeholder="Enter text here"></textarea>
-        <div class="select-container">
-            <select id="lang">
-                <option value="tl" selected>Filipino</option>
-                <!-- Add more languages here if desired, e.g., <option value="en">English</option> -->
-            </select>
-        </div>
-        <button id="generate-btn" onclick="generateAudio()" disabled>Generate Audio File</button>
-        <a id="download-link" href="#" download="voiceover.wav"></a>
-    </div>
-    <script src="mespeak.js"></script>
-    <script>
-        let voiceLoaded = false;
+  <div id="scene-container">
+    Loading...
+  </div>
 
-        // Load the Filipino voice (adjust path if necessary)
-        meSpeak.loadVoice('voices/tl.json', function(success) {
-            if (success) {
-                voiceLoaded = true;
-                document.getElementById('generate-btn').disabled = false;
-            } else {
-                alert('Failed to load the Filipino voice. Please check the voice file path.');
-            }
+  <div id="nav-bar">
+    <div class="nav" id="prev-scene">&#8592; Back</div>
+    <div class="nav" id="next-scene">Next &#8594;</div>
+  </div>
+
+  <script>
+    let currentScene = 1;
+
+    function loadScene(sceneNum) {
+      fetch(`xml/scene${sceneNum}.xml`)
+        .then(response => {
+          if (!response.ok) throw new Error("Scene not found");
+          return response.text();
+        })
+        .then(xmlString => {
+          const parser = new DOMParser();
+          const xml = parser.parseFromString(xmlString, "text/xml");
+          const content = xml.getElementsByTagName("content")[0].textContent;
+          document.getElementById("scene-container").innerHTML = content;
+          currentScene = sceneNum;
+        })
+        .catch(err => {
+          document.getElementById("scene-container").innerHTML = "<p>End of the line. No more scenes.</p>";
         });
+    }
 
-        function generateAudio() {
-            if (!voiceLoaded) {
-                alert('Voice is still loading. Please wait.');
-                return;
-            }
-            const text = document.getElementById('text').value;
-            const lang = document.getElementById('lang').value;
-            if (text.trim() === '') {
-                alert('Please enter some text.');
-                return;
-            }
+    document.getElementById("prev-scene").addEventListener("click", () => {
+      if (currentScene > 1) loadScene(currentScene - 1);
+    });
 
-            // Generate audio using meSpeak.js
-            var audioData = meSpeak.speak(text, { voice: lang, rawdata: 'base64' });
-            if (audioData) {
-                // Convert base64 to binary
-                var binary = atob(audioData);
-                var array = new Uint8Array(binary.length);
-                for (var i = 0; i < binary.length; i++) {
-                    array[i] = binary.charCodeAt(i);
-                }
-                // Create a Blob and trigger download
-                var blob = new Blob([array], { type: 'audio/wav' });
-                var url = URL.createObjectURL(blob);
-                var downloadLink = document.getElementById('download-link');
-                downloadLink.href = url;
-                downloadLink.click();
-                URL.revokeObjectURL(url);
-            } else {
-                alert('Failed to generate audio. Ensure the voice is loaded correctly.');
-            }
-        }
-    </script>
+    document.getElementById("next-scene").addEventListener("click", () => {
+      loadScene(currentScene + 1);
+    });
+
+    // Initial load
+    loadScene(currentScene);
+  </script>
 </body>
 </html>
