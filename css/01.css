@@ -1,25 +1,29 @@
-/* Arrow Navigation - Centered Left/Right */
+/* Arrow Navigation - Clean, Edge-Aligned, Responsive */
 .nav-arrow {
   position: fixed;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 4rem;
+  font-size: 20vh; /* ~20% of screen height */
   font-weight: bold;
-  color: #fff;
+  color: white;
   cursor: pointer;
   user-select: none;
-  padding: 0 1rem;
   z-index: 1000;
+  transition: color 0.3s ease;
 }
 
 .nav-left {
   left: 0;
+  padding-left: 10px;
+  text-align: left;
 }
 
 .nav-right {
   right: 0;
+  padding-right: 10px;
+  text-align: right;
 }
 
 .nav-arrow:hover {
-  color: #ff0000;
+  color: red;
 }
