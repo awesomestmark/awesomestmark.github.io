@@ -1,0 +1,56 @@
+/* css/01.css - Classic Black & White with Red Accents */
+
+body {
+  font-family: 'Courier New', monospace;
+  background-color: #000;
+  color: #fff;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 100vh;
+  padding: 0;
+}
+
+#scene-container {
+  max-width: 800px;
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.5rem;
+}
+
+#scene-container h1, #scene-container h2, #scene-container strong {
+  color: #ff0000;
+}
+
+#nav-bar {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 1rem 2rem;
+  border-top: 1px solid #333;
+  background-color: #111;
+}
+
+.nav {
+  font-size: 2rem;
+  color: #ff0000;
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.2s ease;
+}
+
+.nav:hover {
+  color: #fff;
+}
+
+/* Optional: blood-splatter style text effect */
+#scene-container h1::after {
+  content: "";
+  display: block;
+  height: 4px;
+  background: red;
+  margin-top: 10px;
+  box-shadow: 0 0 10px red, 0 0 20px red, 0 0 30px red;
+}
