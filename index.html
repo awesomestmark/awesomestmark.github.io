@@ -53,7 +53,8 @@
     let currentScene = 1;
 
     function loadScene(sceneNum) {
-      fetch(`xml/scene${sceneNum}.xml`)
+      const fileName = sceneNum < 10 ? `scene0${sceneNum}` : `scene${sceneNum}`;
+      fetch(`xml/${fileName}.xml`)
         .then(response => {
           if (!response.ok) throw new Error("Scene not found");
           return response.text();
@@ -83,3 +84,14 @@
   </script>
 </body>
 </html>
+
+
+
+<scene>
+  <content>
+    <![CDATA[
+      <h1>WELCOME TO THE INTERNET</h1>
+      <p>You're gonna need a key.</p>
+    ]]>
+  </content>
+</scene>
