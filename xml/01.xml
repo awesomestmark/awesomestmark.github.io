@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <scene>
   <content>
-    <h1>WELCOME TO THE INTERNET</h1>
-    <h2>You're gonna need a key.</h2>
+    <![CDATA[
+      <h1>WELCOME TO THE INTERNET</h1>
+      <p>You're gonna need a key.</p>
+    ]]>
   </content>
 </scene>
