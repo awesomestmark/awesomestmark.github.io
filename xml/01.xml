@@ -2,8 +2,8 @@
 <scene>
   <content>
     <![CDATA[
-      <h1>WELCOME TO THE INTERNET</h1>
-      <h2>You're gonna need a key.</h2>
+      <h1 class="welcome">WELCOME TO THE INTERNET</h1>
+      <p class="subtext">You're gonna need a key.</p>
       <p>Pause here. Create a Google account. Then hit next.</p>
     ]]>
   </content>
