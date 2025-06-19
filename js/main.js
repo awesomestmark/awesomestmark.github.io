@@ -1,8 +1,11 @@
 let currentScene = 1;
 let currentAd = 1;
+const totalScenes = 2; // You currently only have 2 scene files
 const totalAds = 2;
 
 function loadScene(sceneNum) {
+  if (sceneNum < 1 || sceneNum > totalScenes) return;
+
   const fileName = sceneNum < 10 ? `0${sceneNum}` : `${sceneNum}`;
   const path = `xml/${fileName}.xml`;
   const container = document.getElementById("scene-container");
@@ -34,14 +37,21 @@ function loadScene(sceneNum) {
     });
 }
 
-function animateSceneText(container, text) {
-  let i = 0;
+function animateSceneText(container, html) {
+  const temp = document.createElement("div");
+  temp.innerHTML = html;
+
+  const fullText = temp.textContent || temp.innerText || "";
   container.innerHTML = "";
 
+  let i = 0;
   const interval = setInterval(() => {
-    container.innerHTML += text[i];
+    container.textContent += fullText[i];
     i++;
-    if (i >= text.length) clearInterval(interval);
+    if (i >= fullText.length) {
+      clearInterval(interval);
+      container.innerHTML = html;
+    }
   }, 20);
 }
 
@@ -98,7 +108,9 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   document.getElementById("next-scene").addEventListener("click", () => {
-    loadScene(currentScene + 1);
+    if (currentScene < totalScenes) {
+      loadScene(currentScene + 1);
+    }
   });
 
   loadScene(currentScene);
