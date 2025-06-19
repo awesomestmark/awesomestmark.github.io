@@ -131,3 +131,19 @@ p.subtext {
     font-size: 1.2rem;
   }
 }
+
+/* Ad Fade-In */
+.fade-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: #000;
+  opacity: 0;
+  transition: opacity 0.5s;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.fade-overlay.active {
+  opacity: 1;
+}
