@@ -1,7 +1,5 @@
+/* === 01.css - Final Version: SVG Arrows, Dark Mode, Clean Layout === */
 
-/* === 01.css - Final Zen Layout === */
-
-/* General Page Layout */
 body {
   font-family: 'Courier New', monospace;
   background-color: white;
@@ -10,17 +8,19 @@ body {
   padding: 0;
   height: 100vh;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
+/* Layout Container: 5% left, 90% center, 5% right */
 .layout {
   display: flex;
   width: 100vw;
   height: 100vh;
 }
 
-/* === Navigation Wrappers (5% on sides) === */
+/* Nav Zones */
 .nav-wrapper {
   width: 5%;
   display: flex;
@@ -28,19 +28,20 @@ body {
   justify-content: center;
 }
 
-/* === Navigation Arrows === */
-.nav-arrow {
-  font-size: 18vh;
-  font-weight: bold;
-  color: black;
+/* Nav Arrows as SVGs */
+.nav-arrow svg {
+  height: 12vh;
+  width: auto;
   opacity: 0.5;
-  cursor: pointer;
-  user-select: none;
-  line-height: 1;
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-/* Fix shifting issue on hover */
+.nav-arrow:hover svg {
+  transform: scale(1.25);
+  opacity: 0.95;
+}
+
+/* Fix Hover Shift */
 .nav-left {
   transform-origin: left center;
 }
@@ -49,13 +50,7 @@ body {
   transform-origin: right center;
 }
 
-/* Hover scale effect */
-.nav-arrow:hover {
-  transform: scale(1.25);
-  opacity: 0.95;
-}
-
-/* === Main Content (Centered 90%) === */
+/* Main Content Area */
 #scene-container {
   width: 90%;
   padding: 2rem 0;
@@ -66,14 +61,14 @@ body {
   overflow-y: auto;
 }
 
-/* Move content up on portrait */
+/* Move content up on portrait mode */
 @media screen and (max-height: 768px) and (orientation: portrait) {
   #scene-container {
     margin-top: 10vh;
   }
 }
 
-/* Fallback text */
+/* Fallback message */
 .presence {
   font-size: 2rem;
   font-style: italic;
@@ -81,7 +76,7 @@ body {
   margin-top: 2rem;
 }
 
-/* === Responsive Adjustments === */
+/* Responsive Adjustments */
 @media screen and (max-width: 768px) {
   #scene-container {
     width: 90%;
@@ -89,8 +84,8 @@ body {
     padding: 1rem;
   }
 
-  .nav-arrow {
-    font-size: 14vh;
+  .nav-arrow svg {
+    height: 10vh;
   }
 
   .nav-left {
@@ -100,4 +95,32 @@ body {
   .nav-right {
     transform-origin: right center;
   }
+}
+
+/* Theme Toggle Button */
+#toggle-theme {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 9999;
+  padding: 0.5rem 1rem;
+  background: transparent;
+  border: 2px solid black;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* === Dark Mode Styles === */
+body.dark-mode {
+  background-color: black;
+  color: white;
+}
+
+body.dark-mode .nav-arrow svg {
+  fill: white;
+}
+
+body.dark-mode #toggle-theme {
+  border-color: white;
+  color: white;
 }
