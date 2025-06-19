@@ -1,43 +1,49 @@
 let currentScene = 1;
 let currentAd = 1;
-const totalScenes = 2; // You currently only have 2 scene files
+const totalScenes = 2;
 const totalAds = 2;
 
-// Intro animation
+// Intro animation: WELCOME TO THE INTERNET
 function runIntroSequence() {
   const container = document.getElementById("scene-container");
   const audio = new Audio("audio/static_intro.wav");
 
   const title = "WELCOME TO THE INTERNET";
+  const titleElem = document.createElement("div");
+  titleElem.className = "intro-title";
   container.innerHTML = "";
   container.classList.add("intro");
+  container.appendChild(titleElem);
 
   audio.play();
 
   let i = 0;
   const interval = setInterval(() => {
-    container.textContent += title[i];
+    titleElem.textContent += title[i];
     i++;
     if (i >= title.length) {
       clearInterval(interval);
       setTimeout(() => {
         audio.pause();
         audio.currentTime = 0;
-        container.innerHTML = `<h1>${title}</h1><div id="main-content"></div>`;
+
+        const restElem = document.createElement("div");
+        restElem.id = "main-content";
+        container.appendChild(restElem);
+
+        loadScene(currentScene, restElem, 40); // slower text
         container.classList.remove("intro");
-        loadScene(currentScene);
-      }, 1000); // 1 second pause
+      }, 1000);
     }
-  }, 100); // slower typewriter for dramatic intro
+  }, 150); // slower typing for the intro
 }
 
-// Load scene content
-function loadScene(sceneNum) {
+function loadScene(sceneNum, containerOverride = null, speedOverride = 20) {
   if (sceneNum < 1 || sceneNum > totalScenes) return;
 
   const fileName = sceneNum < 10 ? `0${sceneNum}` : `${sceneNum}`;
   const path = `xml/${fileName}.xml`;
-  const container = document.getElementById("main-content") || document.getElementById("scene-container");
+  const container = containerOverride || document.getElementById("main-content") || document.getElementById("scene-container");
 
   fetch(path)
     .then(response => {
@@ -49,9 +55,8 @@ function loadScene(sceneNum) {
       const xml = parser.parseFromString(xmlString, "text/xml");
       const content = xml.getElementsByTagName("content")[0]?.textContent || "";
 
-      container.innerHTML = ""; // Clear before animation
-      animateSceneText(container, content);
-
+      container.innerHTML = "";
+      animateSceneText(container, content, speedOverride);
       currentScene = sceneNum;
       cycleAd();
       toggleTheme();
@@ -65,8 +70,7 @@ function loadScene(sceneNum) {
     });
 }
 
-// Typewriter text animation
-function animateSceneText(container, html) {
+function animateSceneText(container, html, speed = 20) {
   const temp = document.createElement("div");
   temp.innerHTML = html;
 
@@ -81,10 +85,9 @@ function animateSceneText(container, html) {
       clearInterval(interval);
       container.innerHTML = html;
     }
-  }, 20);
+  }, speed);
 }
 
-// Load rotating ad
 function loadAd(adNum) {
   const path = `ads/0${adNum}.xml`;
 
@@ -98,7 +101,6 @@ function loadAd(adNum) {
     });
 }
 
-// Fade overlay for dark/light mode switch
 function toggleTheme() {
   const overlay = document.createElement("div");
   overlay.className = "fade-overlay";
@@ -114,7 +116,7 @@ function toggleTheme() {
   }, 250);
 }
 
-// Voice function (currently unused, saved for future)
+// Voice function kept for future use
 function playVoice(text) {
   const stripped = text.replace(/<[^>]+>/g, "");
   const utterance = new SpeechSynthesisUtterance(stripped);
@@ -125,13 +127,11 @@ function playVoice(text) {
   speechSynthesis.speak(utterance);
 }
 
-// Ad rotator
 function cycleAd() {
   currentAd = currentAd % totalAds + 1;
   loadAd(currentAd);
 }
 
-// Run on page load
 document.addEventListener("DOMContentLoaded", () => {
   if (Math.random() > 0.5) document.body.classList.add("dark-mode");
 
@@ -147,5 +147,5 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  runIntroSequence(); // Start the intro first
+  runIntroSequence();
 });
