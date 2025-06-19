@@ -1,4 +1,4 @@
-/* === 01.css - Classic White + Black Arrows + Balanced Spacing === */
+/* === 01.css - Clean Layout with Refined Arrows & Mobile Fix === */
 
 /* General Layout */
 body {
@@ -15,7 +15,7 @@ body {
   text-align: center;
 }
 
-/* Scene Container (adds 10% padding left and right) */
+/* Scene Container (adds 10% index) */
 #scene-container {
   width: 80%;
   padding: 2rem 0;
@@ -33,12 +33,12 @@ body {
   text-align: center;
 }
 
-/* === Navigation Arrows (offset 5% from sides) === */
+/* === Navigation Arrows (clean, 10% index, responsive) === */
 .nav-arrow {
   position: fixed;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 20vh;
+  font-size: 15vh;
   font-weight: bold;
   color: black;
   cursor: pointer;
@@ -50,16 +50,18 @@ body {
     opacity 0.3s ease;
 }
 
+/* Position within 10% padding */
 .nav-left {
-  left: 5%;
+  left: 10%;
 }
 
 .nav-right {
-  right: 5%;
+  right: 10%;
 }
 
+/* Hover: grow by 25% and full opacity */
 .nav-arrow:hover {
-  transform: translateY(-50%) scale(2);
+  transform: translateY(-50%) scale(1.25);
   opacity: 1;
 }
 
@@ -71,7 +73,7 @@ body {
   margin-top: 2rem;
 }
 
-/* Responsive Adjustments */
+/* === Responsive: Smaller screen cleanup === */
 @media screen and (max-width: 768px) {
   #scene-container {
     width: 90%;
@@ -80,8 +82,12 @@ body {
   }
 
   .nav-arrow {
-    font-size: 15vh;
-    left: 3%;
-    right: 3%;
+    font-size: 12vh;
+    left: 5%;
+    right: 5%;
+  }
+
+  .nav-arrow:hover {
+    transform: translateY(-50%) scale(1.25);
   }
 }
