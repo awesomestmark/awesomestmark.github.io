@@ -2,18 +2,8 @@
 <scene>
   <content>
     <![CDATA[
-      <h1>WELCOME TO THE INTERNET</h1>
-      <p>Create a 
-        <span style="font-weight:bold;">
-          <span style="color:#4285F4;">G</span>
-          <span style="color:#DB4437;">o</span>
-          <span style="color:#F4B400;">o</span>
-          <span style="color:#4285F4;">g</span>
-          <span style="color:#0F9D58;">l</span>
-          <span style="color:#DB4437;">e</span>
-        </span>
-        account.
-      </p>
+      <h1>WELCOME TO THE INTERNET/h1>
+      <p>You're gonna need a key.</p>
     ]]>
   </content>
 </scene>
