@@ -1,39 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Welcome Experience</title>
-  <link rel="stylesheet" href="css/01.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome Experience</title>
+  <link rel="stylesheet" href="css/01.css" />
 </head>
 <body>
-  <!-- Ad Container -->
-  <div id="ad-container" class="ad-container">Loading ad...</div>
+  <!-- Ad Container -->
+  <div id="ad-container" class="ad-container">Loading ad...</div>
 
-  <!-- Main Layout -->
-  <div class="layout">
-    <!-- Left Navigation -->
-    <div class="nav-wrapper nav-left">
-      <div class="nav-arrow" id="prev-scene">
-        <svg width="48" height="48" viewBox="0 0 24 24">
-          <path fill="currentColor" d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
-        </svg>
-      </div>
-    </div>
+  <!-- Scene Content and Navigation -->
+  <div class="page-container">
+    <div class="nav-left nav-wrapper">
+      <div class="nav-arrow" id="prev-scene">
+        <svg width="48" height="48" viewBox="0 0 24 24">
+          <path fill="currentColor" d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+        </svg>
+      </div>
+    </div>
 
-    <!-- Scene Content -->
-    <div id="scene-container"></div>
+    <div id="scene-container"></div>
 
-    <!-- Right Navigation -->
-    <div class="nav-wrapper nav-right">
-      <div class="nav-arrow" id="next-scene">
-        <svg width="48" height="48" viewBox="0 0 24 24">
-          <path fill="currentColor" d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z"/>
-        </svg>
-      </div>
-    </div>
-  </div>
+    <div class="nav-right nav-wrapper">
+      <div class="nav-arrow" id="next-scene">
+        <svg width="48" height="48" viewBox="0 0 24 24">
+          <path fill="currentColor" d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z"/>
+        </svg>
+      </div>
+    </div>
+  </div>
 
-  <script src="js/main.js"></script>
+  <script src="js/main.js"></script>
 </body>
 </html>
