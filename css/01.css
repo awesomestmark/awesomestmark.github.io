@@ -1,4 +1,4 @@
-/* === 01.css - Classic Black/White Theme with Clean Nav Arrows === */
+/* === 01.css - Clean Zen Layout with Refined Arrows + Mobile Boost === */
 
 /* General Layout */
 body {
@@ -15,7 +15,7 @@ body {
   text-align: center;
 }
 
-/* Scene Container (adds 10% index) */
+/* Scene Container with 10% top margin in portrait mode */
 #scene-container {
   width: 80%;
   padding: 2rem 0;
@@ -23,6 +23,13 @@ body {
   line-height: 1.6;
   word-wrap: break-word;
   margin: 0 auto;
+}
+
+/* Force higher position on portrait mode */
+@media screen and (max-height: 768px) and (orientation: portrait) {
+  #scene-container {
+    margin-top: 10vh;
+  }
 }
 
 /* Text Alignment */
@@ -33,7 +40,7 @@ body {
   text-align: center;
 }
 
-/* === Navigation Container & Arrows (Responsive & Fixed) === */
+/* === Navigation Container & Arrows === */
 .nav-container {
   position: absolute;
   top: 50%;
@@ -48,7 +55,8 @@ body {
 }
 
 .nav-arrow {
-  font-size: 15vh;
+  font-size: 20vh;               /* Taller appearance */
+  font-stretch: condensed;       /* Avoid wider shape */
   font-weight: bold;
   color: black;
   opacity: 0.5;
@@ -56,10 +64,12 @@ body {
   pointer-events: auto;
   user-select: none;
   cursor: pointer;
+  line-height: 1;                /* Keep arrow tightly tall */
 }
 
+/* Hover effect: subtle scale and fade-in */
 .nav-arrow:hover {
-  transform: scale(1.25);
+  transform: scale(1.25, 1.25);  /* Grows proportionally */
   opacity: 1;
 }
 
@@ -71,7 +81,7 @@ body {
   margin-top: 2rem;
 }
 
-/* Responsive Layout Adjustments */
+/* === Responsive for Small Screens === */
 @media screen and (max-width: 768px) {
   #scene-container {
     width: 90%;
@@ -80,11 +90,7 @@ body {
   }
 
   .nav-arrow {
-    font-size: 12vh;
-  }
-
-  .nav-arrow:hover {
-    transform: scale(1.25);
+    font-size: 16vh;
   }
 
   .nav-container {
