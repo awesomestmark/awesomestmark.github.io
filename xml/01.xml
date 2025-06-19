@@ -3,7 +3,17 @@
   <content>
     <![CDATA[
       <h1>First step</h1>
-      <p>Create a Google account</p>
+      <p>Create a 
+        <span style="font-weight:bold;">
+          <span style="color:#4285F4;">G</span>
+          <span style="color:#DB4437;">o</span>
+          <span style="color:#F4B400;">o</span>
+          <span style="color:#4285F4;">g</span>
+          <span style="color:#0F9D58;">l</span>
+          <span style="color:#DB4437;">e</span>
+        </span>
+        account.
+      </p>
     ]]>
   </content>
 </scene>
