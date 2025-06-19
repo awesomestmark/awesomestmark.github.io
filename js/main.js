@@ -6,28 +6,34 @@ const totalAds = 2;
 
 function runIntroSequence() {
   const container = document.getElementById("scene-container");
-  const title = "WELCOME TO THE INTERNET";
+  container.innerHTML = "";
 
+  // Static Sound Setup
+  const audio = new Audio("audio/static_intro.wav");
+
+  // Create title element (big bold intro)
   const titleElem = document.createElement("div");
   titleElem.className = "intro-title";
-  container.innerHTML = "";
-  container.classList.add("intro");
   container.appendChild(titleElem);
 
+  // Create container for typed scene content (below the title)
+  const contentElem = document.createElement("div");
+  contentElem.id = "main-content";
+  contentElem.className = "typewriter-container";
+  container.appendChild(contentElem);
+
+  // Type "WELCOME TO THE INTERNET"
+  const titleText = "WELCOME TO THE INTERNET";
   let i = 0;
+  audio.play();
+
   const interval = setInterval(() => {
-    titleElem.textContent += title[i];
+    titleElem.textContent += titleText[i];
     i++;
-    if (i >= title.length) {
+    if (i >= titleText.length) {
       clearInterval(interval);
       setTimeout(() => {
-        const restElem = document.createElement("div");
-        restElem.id = "main-content";
-        restElem.className = "typewriter-container";
-        container.appendChild(restElem);
-
-        loadScene(currentScene, restElem, 40); // Slower typing
-        container.classList.remove("intro");
+        loadScene(currentScene, contentElem, 40);
       }, 1000);
     }
   }, 150);
@@ -56,12 +62,13 @@ function loadScene(sceneNum, containerOverride = null, speedOverride = 20) {
       cycleAd();
       toggleTheme();
 
+      // Play static only once, after user click
       if (!hasPlayedStatic) {
         hasPlayedStatic = true;
         setTimeout(() => {
           const audio = new Audio("audio/static_intro.wav");
           audio.play();
-        }, 300); // short pause before sound plays
+        }, 300);
       }
     })
     .catch((err) => {
