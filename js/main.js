@@ -39,16 +39,26 @@ function animateSceneText(container) {
   });
 }
 
+// Switch between dark and light mode
+function toggleTheme() {
+  document.body.classList.toggle("dark-mode");
+}
+
 document.addEventListener("DOMContentLoaded", () => {
+  // Randomly start with light or dark
+  if (Math.random() > 0.5) {
+    document.body.classList.add("dark-mode");
+  }
+
   document.getElementById("prev-scene").addEventListener("click", () => {
     if (currentScene > 1) {
-      document.body.classList.add("dark-mode"); // Yin
+      toggleTheme();
       loadScene(currentScene - 1);
     }
   });
 
   document.getElementById("next-scene").addEventListener("click", () => {
-    document.body.classList.remove("dark-mode"); // Yang
+    toggleTheme();
     loadScene(currentScene + 1);
   });
 
