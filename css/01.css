@@ -1,4 +1,4 @@
-/* === 01.css - Clean Layout with Refined Arrows & Mobile Fix === */
+/* === 01.css - Classic Black/White Theme with Clean Nav Arrows === */
 
 /* General Layout */
 body {
@@ -33,39 +33,37 @@ body {
   text-align: center;
 }
 
-/* === Navigation Arrows (clean, 10% index, responsive) === */
-.nav-arrow {
-  position: fixed;
+/* === Navigation Container & Arrows (Responsive & Fixed) === */
+.nav-container {
+  position: absolute;
   top: 50%;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
   transform: translateY(-50%);
+  padding: 0 10%;
+  pointer-events: none;
+  z-index: 1000;
+}
+
+.nav-arrow {
   font-size: 15vh;
   font-weight: bold;
   color: black;
-  cursor: pointer;
-  user-select: none;
-  z-index: 1000;
   opacity: 0.5;
-  transition: 
-    transform 0.3s ease,
-    opacity 0.3s ease;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  pointer-events: auto;
+  user-select: none;
+  cursor: pointer;
 }
 
-/* Position within 10% padding */
-.nav-left {
-  left: 10%;
-}
-
-.nav-right {
-  right: 10%;
-}
-
-/* Hover: grow by 25% and full opacity */
 .nav-arrow:hover {
-  transform: translateY(-50%) scale(1.25);
+  transform: scale(1.25);
   opacity: 1;
 }
 
-/* Zen Presence Message */
+/* Zen Message Fallback */
 .presence {
   font-size: 2rem;
   font-style: italic;
@@ -73,7 +71,7 @@ body {
   margin-top: 2rem;
 }
 
-/* === Responsive: Smaller screen cleanup === */
+/* Responsive Layout Adjustments */
 @media screen and (max-width: 768px) {
   #scene-container {
     width: 90%;
@@ -83,11 +81,13 @@ body {
 
   .nav-arrow {
     font-size: 12vh;
-    left: 5%;
-    right: 5%;
   }
 
   .nav-arrow:hover {
-    transform: translateY(-50%) scale(1.25);
+    transform: scale(1.25);
+  }
+
+  .nav-container {
+    padding: 0 5%;
   }
 }
