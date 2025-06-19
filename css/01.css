@@ -147,3 +147,15 @@ p.subtext {
 .fade-overlay.active {
   opacity: 1;
 }
+
+/* Intro */
+#scene-container.intro {
+  background: black;
+  color: white;
+  font-size: 3rem;
+  font-weight: bold;
+  font-family: monospace;
+  text-align: center;
+  padding-top: 30vh;
+  white-space: pre;
+}
