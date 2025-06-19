@@ -3,12 +3,41 @@ let currentAd = 1;
 const totalScenes = 2; // You currently only have 2 scene files
 const totalAds = 2;
 
+// Intro animation
+function runIntroSequence() {
+  const container = document.getElementById("scene-container");
+  const audio = new Audio("audio/static_intro.wav");
+
+  const title = "WELCOME TO THE INTERNET";
+  container.innerHTML = "";
+  container.classList.add("intro");
+
+  audio.play();
+
+  let i = 0;
+  const interval = setInterval(() => {
+    container.textContent += title[i];
+    i++;
+    if (i >= title.length) {
+      clearInterval(interval);
+      setTimeout(() => {
+        audio.pause();
+        audio.currentTime = 0;
+        container.innerHTML = `<h1>${title}</h1><div id="main-content"></div>`;
+        container.classList.remove("intro");
+        loadScene(currentScene);
+      }, 1000); // 1 second pause
+    }
+  }, 100); // slower typewriter for dramatic intro
+}
+
+// Load scene content
 function loadScene(sceneNum) {
   if (sceneNum < 1 || sceneNum > totalScenes) return;
 
   const fileName = sceneNum < 10 ? `0${sceneNum}` : `${sceneNum}`;
   const path = `xml/${fileName}.xml`;
-  const container = document.getElementById("scene-container");
+  const container = document.getElementById("main-content") || document.getElementById("scene-container");
 
   fetch(path)
     .then(response => {
@@ -22,7 +51,6 @@ function loadScene(sceneNum) {
 
       container.innerHTML = ""; // Clear before animation
       animateSceneText(container, content);
-      
 
       currentScene = sceneNum;
       cycleAd();
@@ -37,6 +65,7 @@ function loadScene(sceneNum) {
     });
 }
 
+// Typewriter text animation
 function animateSceneText(container, html) {
   const temp = document.createElement("div");
   temp.innerHTML = html;
@@ -55,6 +84,7 @@ function animateSceneText(container, html) {
   }, 20);
 }
 
+// Load rotating ad
 function loadAd(adNum) {
   const path = `ads/0${adNum}.xml`;
 
@@ -68,6 +98,7 @@ function loadAd(adNum) {
     });
 }
 
+// Fade overlay for dark/light mode switch
 function toggleTheme() {
   const overlay = document.createElement("div");
   overlay.className = "fade-overlay";
@@ -83,21 +114,24 @@ function toggleTheme() {
   }, 250);
 }
 
+// Voice function (currently unused, saved for future)
 function playVoice(text) {
   const stripped = text.replace(/<[^>]+>/g, "");
   const utterance = new SpeechSynthesisUtterance(stripped);
-  utterance.rate = 1;
+  utterance.rate = 0.8;
   utterance.pitch = 1;
   utterance.volume = 0.9;
   speechSynthesis.cancel();
   speechSynthesis.speak(utterance);
 }
 
+// Ad rotator
 function cycleAd() {
   currentAd = currentAd % totalAds + 1;
   loadAd(currentAd);
 }
 
+// Run on page load
 document.addEventListener("DOMContentLoaded", () => {
   if (Math.random() > 0.5) document.body.classList.add("dark-mode");
 
@@ -113,6 +147,5 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  loadScene(currentScene);
-  loadAd(currentAd);
+  runIntroSequence(); // Start the intro first
 });
