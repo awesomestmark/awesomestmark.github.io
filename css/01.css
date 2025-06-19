@@ -1,78 +1,59 @@
-/* === 01.css - Fixed Nav Layer + Zen Content === */
+/* === 01.css - Fixed Layout: 5% | 90% | 5% === */
 
-/* General Layout */
 body {
   font-family: 'Courier New', monospace;
   background-color: white;
   color: black;
   margin: 0;
   padding: 0;
+  height: 100vh;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
-  text-align: center;
 }
 
-/* Scene Container (Content Area) */
-#scene-container {
-  width: 80%;
-  padding: 2rem 0;
-  font-size: 1.5rem;
-  line-height: 1.6;
-  word-wrap: break-word;
-  margin: 0 auto;
+.layout {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
 }
 
-/* Float content up in portrait mode */
-@media screen and (max-height: 768px) and (orientation: portrait) {
-  #scene-container {
-    margin-top: 10vh;
-  }
+/* === Navigation Wrappers (5% Left/Right Columns) === */
+.nav-wrapper {
+  width: 5%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Text Alignment */
-#scene-container h1,
-#scene-container h2,
-#scene-container p,
-.presence {
-  text-align: center;
-}
-
-/* === Navigation Arrows (Fixed UI Layer) === */
 .nav-arrow {
-  position: fixed;
-  top: 50%;
-  transform: translateY(-50%);
   font-size: 18vh;
   font-weight: bold;
   color: black;
   opacity: 0.5;
   cursor: pointer;
   user-select: none;
-  pointer-events: auto;
-  z-index: 9999;
   line-height: 1;
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-/* Left and right fixed positions */
-.nav-left {
-  left: 5%;
-}
-
-.nav-right {
-  right: 5%;
-}
-
-/* Hover: subtle scale and 95% opacity */
 .nav-arrow:hover {
-  transform: translateY(-50%) scale(1.25);
+  transform: scale(1.25);
   opacity: 0.95;
 }
 
-/* Zen fallback text */
+/* === Main Content (Centered 90%) === */
+#scene-container {
+  width: 90%;
+  padding: 2rem 0;
+  font-size: 1.5rem;
+  line-height: 1.6;
+  word-wrap: break-word;
+  text-align: center;
+  overflow-y: auto;
+}
+
+/* Zen fallback */
 .presence {
   font-size: 2rem;
   font-style: italic;
@@ -80,23 +61,15 @@ body {
   margin-top: 2rem;
 }
 
-/* === Responsive Tweaks for Small Screens === */
+/* === Responsive Adjustments === */
 @media screen and (max-width: 768px) {
   #scene-container {
     width: 90%;
     font-size: 1.2rem;
-    padding: 1rem 0;
+    padding: 1rem;
   }
 
   .nav-arrow {
     font-size: 14vh;
-  }
-
-  .nav-left {
-    left: 3%;
-  }
-
-  .nav-right {
-    right: 3%;
   }
 }
