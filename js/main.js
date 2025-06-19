@@ -1,21 +1,18 @@
 let currentScene = 1;
 let currentAd = 1;
+let hasPlayedStatic = false;
 const totalScenes = 2;
 const totalAds = 2;
 
-// Intro animation: WELCOME TO THE INTERNET
 function runIntroSequence() {
   const container = document.getElementById("scene-container");
-  const audio = new Audio("audio/static_intro.wav");
-
   const title = "WELCOME TO THE INTERNET";
+
   const titleElem = document.createElement("div");
   titleElem.className = "intro-title";
   container.innerHTML = "";
   container.classList.add("intro");
   container.appendChild(titleElem);
-
-  audio.play();
 
   let i = 0;
   const interval = setInterval(() => {
@@ -24,18 +21,16 @@ function runIntroSequence() {
     if (i >= title.length) {
       clearInterval(interval);
       setTimeout(() => {
-        audio.pause();
-        audio.currentTime = 0;
-
         const restElem = document.createElement("div");
         restElem.id = "main-content";
+        restElem.className = "typewriter-container";
         container.appendChild(restElem);
 
-        loadScene(currentScene, restElem, 40); // slower text
+        loadScene(currentScene, restElem, 40); // Slower typing
         container.classList.remove("intro");
       }, 1000);
     }
-  }, 150); // slower typing for the intro
+  }, 150);
 }
 
 function loadScene(sceneNum, containerOverride = null, speedOverride = 20) {
@@ -60,6 +55,14 @@ function loadScene(sceneNum, containerOverride = null, speedOverride = 20) {
       currentScene = sceneNum;
       cycleAd();
       toggleTheme();
+
+      if (!hasPlayedStatic) {
+        hasPlayedStatic = true;
+        setTimeout(() => {
+          const audio = new Audio("audio/static_intro.wav");
+          audio.play();
+        }, 300); // short pause before sound plays
+      }
     })
     .catch((err) => {
       container.innerHTML = `
@@ -75,6 +78,7 @@ function animateSceneText(container, html, speed = 20) {
   temp.innerHTML = html;
 
   const fullText = temp.textContent || temp.innerText || "";
+  container.classList.add("typewriter-text");
   container.innerHTML = "";
 
   let i = 0;
@@ -84,6 +88,7 @@ function animateSceneText(container, html, speed = 20) {
     if (i >= fullText.length) {
       clearInterval(interval);
       container.innerHTML = html;
+      container.classList.remove("typewriter-text");
     }
   }, speed);
 }
@@ -116,7 +121,6 @@ function toggleTheme() {
   }, 250);
 }
 
-// Voice function kept for future use
 function playVoice(text) {
   const stripped = text.replace(/<[^>]+>/g, "");
   const utterance = new SpeechSynthesisUtterance(stripped);
