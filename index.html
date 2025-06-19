@@ -7,48 +7,25 @@
   <link rel="stylesheet" href="css/01.css" />
 </head>
 <body>
-  <div id="scene-container">
-    <!-- Scene content loads here -->
+
+  <div class="layout">
+    <!-- Left Nav -->
+    <div class="nav-wrapper nav-left">
+      <div class="nav-arrow" id="prev-scene">&lt;</div>
+    </div>
+
+    <!-- Main Content -->
+    <div id="scene-container">
+      <!-- Scene content will be injected here -->
+    </div>
+
+    <!-- Right Nav -->
+    <div class="nav-wrapper nav-right">
+      <div class="nav-arrow" id="next-scene">&gt;</div>
+    </div>
   </div>
 
-  <!-- ✅ Updated nav container with proper layout -->
-  <div class="nav-container">
-    <div class="nav-arrow nav-left" id="prev-scene">&lt;</div>
-    <div class="nav-arrow nav-right" id="next-scene">&gt;</div>
-  </div>
-
-  <script>
-    let currentScene = 1;
-
-    function loadScene(sceneNum) {
-      const fileName = sceneNum < 10 ? `0${sceneNum}` : `${sceneNum}`;
-      fetch(`xml/${fileName}.xml`)
-        .then(response => {
-          if (!response.ok) throw new Error("Scene not found");
-          return response.text();
-        })
-        .then(xmlString => {
-          const parser = new DOMParser();
-          const xml = parser.parseFromString(xmlString, "text/xml");
-          const content = xml.getElementsByTagName("content")[0]?.textContent || "";
-          document.getElementById("scene-container").innerHTML = content || "<p class='presence'>You are here.</p>";
-          currentScene = sceneNum;
-        })
-        .catch(() => {
-          document.getElementById("scene-container").innerHTML = "<p class='presence'>You are here.</p>";
-        });
-    }
-
-    document.getElementById("prev-scene").addEventListener("click", () => {
-      if (currentScene > 1) loadScene(currentScene - 1);
-    });
-
-    document.getElementById("next-scene").addEventListener("click", () => {
-      loadScene(currentScene + 1);
-    });
-
-    // Initial load
-    loadScene(currentScene);
-  </script>
+  <!-- JavaScript moved to js/main.js -->
+  <script src="js/main.js"></script>
 </body>
 </html>
