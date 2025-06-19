@@ -48,12 +48,9 @@ document.addEventListener("DOMContentLoaded", () => {
     loadScene(currentScene + 1);
   });
 
-  const toggleButton = document.getElementById("toggle-theme");
-  if (toggleButton) {
-    toggleButton.addEventListener("click", () => {
-      document.body.classList.toggle("dark-mode");
-    });
-  }
+  document.getElementById("toggle-theme").addEventListener("click", () => {
+    document.body.classList.toggle("dark-mode");
+  });
 
   loadScene(currentScene);
 });
