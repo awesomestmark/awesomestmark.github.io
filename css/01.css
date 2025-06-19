@@ -1,4 +1,4 @@
-/* === 01.css - Final Version: SVG Arrows, Dark Mode, Clean Layout === */
+/* === 01.css - Clean Layout Without Theme Toggle === */
 
 body {
   font-family: 'Courier New', monospace;
@@ -13,14 +13,13 @@ body {
   justify-content: flex-start;
 }
 
-/* Layout Container: 5% left, 90% center, 5% right */
 .layout {
   display: flex;
   width: 100vw;
   height: 100vh;
 }
 
-/* Nav Zones */
+/* Navigation Zones (5%) */
 .nav-wrapper {
   width: 5%;
   display: flex;
@@ -28,7 +27,7 @@ body {
   justify-content: center;
 }
 
-/* Nav Arrows as SVGs */
+/* Nav Arrows as SVG */
 .nav-arrow svg {
   height: 12vh;
   width: auto;
@@ -41,7 +40,6 @@ body {
   opacity: 0.95;
 }
 
-/* Fix Hover Shift */
 .nav-left {
   transform-origin: left center;
 }
@@ -50,7 +48,7 @@ body {
   transform-origin: right center;
 }
 
-/* Main Content Area */
+/* Main Content (Centered 90%) */
 #scene-container {
   width: 90%;
   padding: 2rem 0;
@@ -61,7 +59,7 @@ body {
   overflow-y: auto;
 }
 
-/* Move content up on portrait mode */
+/* Move content up in portrait */
 @media screen and (max-height: 768px) and (orientation: portrait) {
   #scene-container {
     margin-top: 10vh;
@@ -95,32 +93,4 @@ body {
   .nav-right {
     transform-origin: right center;
   }
-}
-
-/* Theme Toggle Button */
-#toggle-theme {
-  position: fixed;
-  top: 10px;
-  right: 10px;
-  z-index: 9999;
-  padding: 0.5rem 1rem;
-  background: transparent;
-  border: 2px solid black;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-/* === Dark Mode Styles === */
-body.dark-mode {
-  background-color: black;
-  color: white;
-}
-
-body.dark-mode .nav-arrow svg {
-  fill: white;
-}
-
-body.dark-mode #toggle-theme {
-  border-color: white;
-  color: white;
 }
