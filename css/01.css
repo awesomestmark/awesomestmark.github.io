@@ -1,125 +1,120 @@
-/* Base Styles */
 body {
-  font-family: 'Courier New', monospace;
-  margin: 0;
-  padding: 0;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  transition: background-color 0.5s ease, color 0.5s ease;
-  background-color: white;
-  color: black;
+  font-family: 'Courier New', monospace;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  background-color: white;
+  color: black;
+  transition: background-color 0.5s ease, color 0.5s ease;
 }
 
 body.dark-mode {
-  background-color: black;
-  color: white;
+  background-color: black;
+  color: white;
 }
 
-/* Layout: Nav Left / Center / Right */
+.ad-container {
+  text-align: center;
+  padding: 1rem;
+  font-size: 1rem;
+  background: #f9f9f9;
+  color: #333;
+}
+
+body.dark-mode .ad-container {
+  background: #111;
+  color: #ccc;
+}
+
 .layout {
-  display: flex;
-  flex-direction: row;
-  width: 100vw;
-  height: 100vh;
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+  height: calc(100vh - 60px); /* space for ad */
 }
 
 .nav-wrapper {
-  width: 5vw;
-  min-width: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 5vw;
+  min-width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .nav-arrow svg {
-  height: 8vh;
-  width: auto;
-  opacity: 0.5;
-  transition: transform 0.3s ease, opacity 0.3s ease;
+  height: 8vh;
+  width: auto;
+  opacity: 0.5;
+  transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
 .nav-arrow:hover svg {
-  transform: scale(1.25);
-  opacity: 0.95;
+  transform: scale(1.25);
+  opacity: 0.95;
 }
 
-/* Content Zone */
 #scene-container {
-  flex-grow: 1;
-  max-width: 90vw;
-  padding: 2rem;
-  font-size: 1.5rem;
-  line-height: 1.6;
-  word-wrap: break-word;
-  text-align: center;
-  overflow-y: auto;
+  flex-grow: 1;
+  max-width: 90vw;
+  padding: 2rem;
+  font-size: 1.5rem;
+  line-height: 1.6;
+  text-align: center;
+  overflow-y: auto;
 }
 
-/* Presence message (fallback) */
-.presence {
-  font-size: 2rem;
-  font-style: italic;
-  opacity: 0.6;
-  margin-top: 2rem;
-}
-
-/* Responsive Adjustments */
-@media screen and (max-width: 900px), screen and (orientation: portrait) {
-  .layout {
-    flex-direction: column;
-  }
-
-  .nav-wrapper {
-    width: 100%;
-    height: 8vh;
-    justify-content: center;
-  }
-
-  .nav-arrow svg {
-    height: 6vh;
-  }
-
-  #scene-container {
-    padding: 1rem;
-    font-size: 1.2rem;
-    max-width: 100vw;
-  }
-}
-
-/* Fade-to-black overlay */
-.fade-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  background-color: black;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.5s ease;
-  z-index: 999;
-}
-
-.fade-overlay.active {
-  opacity: 1;
-}
-
-/* Stylized Scene Content */
 h1.welcome {
-  font-size: 3rem;
-  font-weight: 900;
-  text-align: center;
-  margin-top: 10vh;
+  font-size: 3rem;
+  font-weight: 900;
+  text-align: center;
+  margin-top: 10vh;
 }
 
 p.subtext {
-  font-size: 1.5rem;
-  color: grey;
-  font-style: italic;
-  opacity: 0.6;
-  text-align: center;
-  margin-top: 1rem;
+  font-size: 1.5rem;
+  color: grey;
+  font-style: italic;
+  opacity: 0.6;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.fade-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: black;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+  z-index: 999;
+}
+
+.fade-overlay.active {
+  opacity: 1;
+}
+
+@media screen and (max-width: 900px), screen and (orientation: portrait) {
+  .layout {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .nav-wrapper {
+    width: 100%;
+    height: 8vh;
+    justify-content: center;
+  }
+
+  .nav-arrow svg {
+    height: 6vh;
+  }
+
+  #scene-container {
+    padding: 1rem;
+    font-size: 1.2rem;
+    max-width: 100vw;
+  }
 }
