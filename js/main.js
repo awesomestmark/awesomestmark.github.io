@@ -2,7 +2,9 @@ let currentScene = 1;
 
 function loadScene(sceneNum) {
   const fileName = sceneNum < 10 ? `0${sceneNum}` : `${sceneNum}`;
-  fetch(`xml/${fileName}.xml`)
+  const path = `xml/${fileName}.xml`;
+
+  fetch(path)
     .then(response => {
       if (!response.ok) throw new Error("Scene not found");
       return response.text();
@@ -12,6 +14,7 @@ function loadScene(sceneNum) {
       const xml = parser.parseFromString(xmlString, "text/xml");
       const content = xml.getElementsByTagName("content")[0]?.textContent || "";
       document.getElementById("scene-container").innerHTML = content || "<p class='presence'>You are here.</p>";
+      animateSceneText(document.getElementById("scene-container"));
       currentScene = sceneNum;
     })
     .catch(() => {
@@ -19,6 +22,29 @@ function loadScene(sceneNum) {
     });
 }
 
+function animateSceneText(container) {
+  const letters = container.innerText.split("");
+  container.innerHTML = "";
+  letters.forEach((char, i) => {
+    const span = document.createElement("span");
+    span.textContent = char;
+    span.style.opacity = 0;
+    span.style.transition = `opacity 0.05s ease ${i * 20}ms`;
+    container.appendChild(span);
+  });
+  requestAnimationFrame(() => {
+    container.querySelectorAll("span").forEach(span => {
+      span.style.opacity = 1;
+    });
+  });
+}
+
+// Theme toggle
+document.getElementById("toggle-theme").addEventListener("click", () => {
+  document.body.classList.toggle("dark-mode");
+});
+
+// Scene navigation
 document.getElementById("prev-scene").addEventListener("click", () => {
   if (currentScene > 1) loadScene(currentScene - 1);
 });
@@ -27,5 +53,5 @@ document.getElementById("next-scene").addEventListener("click", () => {
   loadScene(currentScene + 1);
 });
 
-// Initial scene load
+// Load initial scene
 loadScene(currentScene);
