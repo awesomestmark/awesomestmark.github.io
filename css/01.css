@@ -1,5 +1,7 @@
-/* === 01.css - Fixed Layout: 5% | 90% | 5% === */
 
+/* === 01.css - Final Zen Layout === */
+
+/* General Page Layout */
 body {
   font-family: 'Courier New', monospace;
   background-color: white;
@@ -18,7 +20,7 @@ body {
   height: 100vh;
 }
 
-/* === Navigation Wrappers (5% Left/Right Columns) === */
+/* === Navigation Wrappers (5% on sides) === */
 .nav-wrapper {
   width: 5%;
   display: flex;
@@ -26,6 +28,7 @@ body {
   justify-content: center;
 }
 
+/* === Navigation Arrows === */
 .nav-arrow {
   font-size: 18vh;
   font-weight: bold;
@@ -37,6 +40,16 @@ body {
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
+/* Fix shifting issue on hover */
+.nav-left {
+  transform-origin: left center;
+}
+
+.nav-right {
+  transform-origin: right center;
+}
+
+/* Hover scale effect */
 .nav-arrow:hover {
   transform: scale(1.25);
   opacity: 0.95;
@@ -53,7 +66,14 @@ body {
   overflow-y: auto;
 }
 
-/* Zen fallback */
+/* Move content up on portrait */
+@media screen and (max-height: 768px) and (orientation: portrait) {
+  #scene-container {
+    margin-top: 10vh;
+  }
+}
+
+/* Fallback text */
 .presence {
   font-size: 2rem;
   font-style: italic;
@@ -71,5 +91,13 @@ body {
 
   .nav-arrow {
     font-size: 14vh;
+  }
+
+  .nav-left {
+    transform-origin: left center;
+  }
+
+  .nav-right {
+    transform-origin: right center;
   }
 }
