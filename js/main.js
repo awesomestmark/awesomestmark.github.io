@@ -8,7 +8,7 @@ function loadScene(sceneNum) {
 
   fetch(path)
     .then(response => {
-      if (!response.ok) throw new Error(`Scene ${fileName}.xml not found`);
+      if (!response.ok) throw new Error(`Scene ${fileName}.xml not found (${response.status})`);
       return response.text();
     })
     .then(xmlString => {
@@ -20,18 +20,19 @@ function loadScene(sceneNum) {
       animateSceneText(document.getElementById("scene-container"));
       playVoice(content);
 
-      // ✅ only set currentScene *after* successful load
+      // Update scene only on success
       currentScene = sceneNum;
 
-      // 🎯 now also rotate ads independently
+      // Rotate ad and toggle theme
       cycleAd();
       toggleTheme();
     })
     .catch((err) => {
-      console.error("Scene load error:", err);
       document.getElementById("scene-container").innerHTML = `
-        <p style="color:red;">❌ Scene could not load.</p>
-        <p class="subtext">You are here.</p>`;
+        <p style="color:red; font-weight:bold;">❌ Failed to load: xml/${fileName}.xml</p>
+        <p style="font-size: 0.9rem;">${err.message}</p>
+      `;
+      console.error("Scene load error:", err);
     });
 }
 
@@ -79,7 +80,6 @@ function cycleAd() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  // Random dark/light start
   if (Math.random() > 0.5) document.body.classList.add("dark-mode");
 
   document.getElementById("prev-scene").addEventListener("click", () => {
