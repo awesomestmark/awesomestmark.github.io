@@ -39,19 +39,21 @@ function animateSceneText(container) {
   });
 }
 
-// Navigation
-document.getElementById("prev-scene").addEventListener("click", () => {
-  if (currentScene > 1) loadScene(currentScene - 1);
-});
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("prev-scene").addEventListener("click", () => {
+    if (currentScene > 1) loadScene(currentScene - 1);
+  });
 
-document.getElementById("next-scene").addEventListener("click", () => {
-  loadScene(currentScene + 1);
-});
+  document.getElementById("next-scene").addEventListener("click", () => {
+    loadScene(currentScene + 1);
+  });
 
-// Theme toggle
-document.getElementById("toggle-theme").addEventListener("click", () => {
-  document.body.classList.toggle("dark-mode");
-});
+  const toggleButton = document.getElementById("toggle-theme");
+  if (toggleButton) {
+    toggleButton.addEventListener("click", () => {
+      document.body.classList.toggle("dark-mode");
+    });
+  }
 
-// Load initial scene
-loadScene(currentScene);
+  loadScene(currentScene);
+});
