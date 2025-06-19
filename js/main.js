@@ -5,6 +5,7 @@ const totalAds = 2;
 function loadScene(sceneNum) {
   const fileName = sceneNum < 10 ? `0${sceneNum}` : `${sceneNum}`;
   const path = `xml/${fileName}.xml`;
+  const container = document.getElementById("scene-container");
 
   fetch(path)
     .then(response => {
@@ -16,24 +17,32 @@ function loadScene(sceneNum) {
       const xml = parser.parseFromString(xmlString, "text/xml");
       const content = xml.getElementsByTagName("content")[0]?.textContent || "";
 
-      document.getElementById("scene-container").innerHTML = content;
-      animateSceneText(document.getElementById("scene-container"));
+      container.innerHTML = ""; // Clear before animation
+      animateSceneText(container, content);
       playVoice(content);
 
-      // Update scene only on success
       currentScene = sceneNum;
-
-      // Rotate ad and toggle theme
       cycleAd();
       toggleTheme();
     })
     .catch((err) => {
-      document.getElementById("scene-container").innerHTML = `
+      container.innerHTML = `
         <p style="color:red; font-weight:bold;">❌ Failed to load: xml/${fileName}.xml</p>
         <p style="font-size: 0.9rem;">${err.message}</p>
       `;
       console.error("Scene load error:", err);
     });
+}
+
+function animateSceneText(container, text) {
+  let i = 0;
+  container.innerHTML = "";
+
+  const interval = setInterval(() => {
+    container.innerHTML += text[i];
+    i++;
+    if (i >= text.length) clearInterval(interval);
+  }, 20);
 }
 
 function loadAd(adNum) {
