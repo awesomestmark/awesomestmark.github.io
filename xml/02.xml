@@ -2,8 +2,9 @@
 <scene>
   <content>
     <![CDATA[
-      <h1>First step</h1>
-      <p>Create a Google account</p>
+      <h1>First Step</h1>
+      <p>Create an account at <a href="https://freebitco.in" target="_blank">FreeBitco.in</a></p>
+      <p>Use the Google email you just created.</p>
     ]]>
   </content>
 </scene>
