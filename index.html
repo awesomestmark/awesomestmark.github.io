@@ -7,25 +7,34 @@
   <link rel="stylesheet" href="css/01.css" />
 </head>
 <body>
+  <!-- Dark Mode Toggle -->
+  <button id="toggle-theme">Toggle Dark Mode</button>
 
   <div class="layout">
     <!-- Left Nav -->
     <div class="nav-wrapper nav-left">
-      <div class="nav-arrow" id="prev-scene">&lt;</div>
+      <div class="nav-arrow" id="prev-scene">
+        <svg width="48" height="48" viewBox="0 0 24 24">
+          <path fill="currentColor" d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+        </svg>
+      </div>
     </div>
 
     <!-- Main Content -->
     <div id="scene-container">
-      <!-- Scene content will be injected here -->
+      <!-- Scene content will load here -->
     </div>
 
     <!-- Right Nav -->
     <div class="nav-wrapper nav-right">
-      <div class="nav-arrow" id="next-scene">&gt;</div>
+      <div class="nav-arrow" id="next-scene">
+        <svg width="48" height="48" viewBox="0 0 24 24">
+          <path fill="currentColor" d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z"/>
+        </svg>
+      </div>
     </div>
   </div>
 
-  <!-- JavaScript moved to js/main.js -->
   <script src="js/main.js"></script>
 </body>
 </html>
