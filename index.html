@@ -11,8 +11,11 @@
     <!-- Scene content loads here -->
   </div>
 
-  <div class="nav-arrow nav-left" id="prev-scene">&lt;</div>
-  <div class="nav-arrow nav-right" id="next-scene">&gt;</div>
+  <!-- ✅ Updated nav container with proper layout -->
+  <div class="nav-container">
+    <div class="nav-arrow nav-left" id="prev-scene">&lt;</div>
+    <div class="nav-arrow nav-right" id="next-scene">&gt;</div>
+  </div>
 
   <script>
     let currentScene = 1;
@@ -31,7 +34,7 @@
           document.getElementById("scene-container").innerHTML = content || "<p class='presence'>You are here.</p>";
           currentScene = sceneNum;
         })
-        .catch(err => {
+        .catch(() => {
           document.getElementById("scene-container").innerHTML = "<p class='presence'>You are here.</p>";
         });
     }
