@@ -22,7 +22,7 @@ function loadScene(sceneNum) {
 
       container.innerHTML = ""; // Clear before animation
       animateSceneText(container, content);
-      playVoice(content);
+      
 
       currentScene = sceneNum;
       cycleAd();
