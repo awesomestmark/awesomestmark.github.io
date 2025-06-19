@@ -15,6 +15,7 @@ function loadScene(sceneNum) {
       const content = xml.getElementsByTagName("content")[0]?.textContent || "";
       document.getElementById("scene-container").innerHTML = content || "<p class='presence'>You are here.</p>";
       animateSceneText(document.getElementById("scene-container"));
+      playVoice(content);
       currentScene = sceneNum;
     })
     .catch(() => {
@@ -39,13 +40,32 @@ function animateSceneText(container) {
   });
 }
 
-// Switch between dark and light mode
 function toggleTheme() {
-  document.body.classList.toggle("dark-mode");
+  const overlay = document.createElement("div");
+  overlay.className = "fade-overlay";
+  document.body.appendChild(overlay);
+
+  overlay.classList.add("active");
+  setTimeout(() => {
+    document.body.classList.toggle("dark-mode");
+    overlay.classList.remove("active");
+    setTimeout(() => {
+      overlay.remove();
+    }, 500);
+  }, 250);
+}
+
+function playVoice(text) {
+  const stripped = text.replace(/<[^>]+>/g, ""); // Remove HTML tags
+  const utterance = new SpeechSynthesisUtterance(stripped);
+  utterance.rate = 1;
+  utterance.pitch = 1;
+  utterance.volume = 0.9;
+  speechSynthesis.cancel(); // Cancel any ongoing speech
+  speechSynthesis.speak(utterance);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  // Randomly start with light or dark
   if (Math.random() > 0.5) {
     document.body.classList.add("dark-mode");
   }
