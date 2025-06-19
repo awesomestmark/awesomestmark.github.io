@@ -39,12 +39,6 @@ function animateSceneText(container) {
   });
 }
 
-// Theme toggle
-document.getElementById("toggle-theme").addEventListener("click", () => {
-  document.body.classList.toggle("dark-mode");
-});
-
-// Scene navigation
 document.getElementById("prev-scene").addEventListener("click", () => {
   if (currentScene > 1) loadScene(currentScene - 1);
 });
@@ -53,5 +47,5 @@ document.getElementById("next-scene").addEventListener("click", () => {
   loadScene(currentScene + 1);
 });
 
-// Load initial scene
+// Load first scene
 loadScene(currentScene);
