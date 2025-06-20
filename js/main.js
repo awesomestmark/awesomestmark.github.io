@@ -1,3 +1,10 @@
+console.log("main.js loaded");
+document.addEventListener("DOMContentLoaded", () => {
+  console.log("DOM fully loaded");
+  runIntroSequence();
+});
+
+
 let currentScene = 1;
 let currentAd = 1;
 let hasPlayedStatic = false;
