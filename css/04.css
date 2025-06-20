@@ -47,15 +47,27 @@ body {
 }
 
 .nav-arrow:hover svg {
-  transform: scale(1.2);
+  transform: scale: 1.2;
   opacity: 1;
 }
 
 .intro-title {
   font-size: 4rem;
   font-weight: bold;
+  font-family: 'Courier New', monospace;
   color: #004400;
-  margin-bottom: 2rem;
+  margin: 0; /* Remove margin */
+  text-align: center; /* Ensure centering */
+}
+
+.typewriter-container {
+  padding: 0; /* Remove padding */
+  font-size: 1.5rem;
+  line-height: 1.6;
+  font-family: 'Courier New', monospace;
+  color: #004400;
+  text-align: center; /* Ensure centering */
+  max-width: 90%;
 }
 
 .typewriter-text {
@@ -74,8 +86,8 @@ body {
   background: #fdf6e3; /* Matches body background */
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  justify-content: center !important; /* Force centering */
+  align-items: center !important; /* Force centering */
   z-index: 10000; /* Above all other content */
   opacity: 1;
   transition: opacity 0.5s ease;
