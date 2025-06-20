@@ -154,6 +154,33 @@ p.subtext {
   word-break: break-word;
 }
 
+/* Intro Overlay */
+.intro-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: white; /* Matches body background in light mode */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000; /* Above all other content */
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
+body.dark-mode .intro-overlay {
+  background: black; /* Matches body background in dark mode */
+  color: white;
+}
+
+.intro-overlay.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
 /* Mobile Fixes */
 @media (max-width: 900px), (orientation: portrait) {
   .page-container {
