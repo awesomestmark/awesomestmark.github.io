@@ -172,3 +172,11 @@ window.addEventListener("keydown", (e) => {
   }
 });
 
+const themeNum = Math.floor(Math.random() * 4) + 1;
+document.querySelector('link[rel=stylesheet]').href = `css/0${themeNum}.css`;
+
+document.getElementById("theme-switcher").addEventListener("change", (e) => {
+  const theme = e.target.value;
+  const link = document.querySelector('link[rel=stylesheet]');
+  link.href = `css/0${theme}.css`;
+});
