@@ -1,9 +1,9 @@
 console.log("main.js loaded");
+
 document.addEventListener("DOMContentLoaded", () => {
   console.log("DOM fully loaded");
   runIntroSequence();
 });
-
 
 let currentScene = 1;
 let currentAd = 1;
@@ -50,15 +50,20 @@ function loadScene(sceneNum, containerOverride = null, speedOverride = 20) {
   const path = `xml/${fileName}.xml`;
   const container = containerOverride || document.getElementById("main-content") || document.getElementById("scene-container");
 
+  console.log(`Loading scene file: ${path}`);
+
   fetch(path)
     .then(response => {
       if (!response.ok) throw new Error(`Scene ${fileName}.xml not found (${response.status})`);
       return response.text();
     })
     .then(xmlString => {
+      console.log(`Scene ${fileName} XML loaded`);
       const parser = new DOMParser();
       const xml = parser.parseFromString(xmlString, "text/xml");
-      const content = xml.getElementsByTagName("content")[0]?.textContent || "";
+      const contentElem = xml.getElementsByTagName("content")[0];
+      if (!contentElem) throw new Error("No <content> tag found in XML");
+      const content = contentElem.textContent || "";
 
       container.innerHTML = "";
       animateSceneText(container, content, speedOverride);
@@ -103,11 +108,12 @@ function animateSceneText(container, html, speed = 20) {
   }, speed);
 }
 
-function loadAd(adNum) {
-  const path = `ads/0${adNum}.xml`;
+function cycleAd() {
+  // Placeholder for your ad cycling logic
+  console.log("cycleAd called");
+}
 
-  fetch(path)
-    .then(response => response.text())
-    .then(xmlString => {
-      const parser = new DOMParser();
-      const xml = parse
+function toggleTheme() {
+  // Placeholder for your theme toggling logic
+  console.log("toggleTheme called");
+}
