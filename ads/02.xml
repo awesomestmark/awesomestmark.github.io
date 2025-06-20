@@ -1,10 +1,99 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ad>
-  <content>
-    <![CDATA[
-      <div class="ad-box">
-        🚀 <strong>Speed Up:</strong> Boost your site with lightning hosting!
-      </div>
-    ]]>
-  </content>
+  <content>
+    <![CDATA[
+      <div class="ad-box">
+        <style>
+          .ad-box {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #f0f4f8, #ffffff);
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+          }
+
+          .referral-button {
+            display: inline-block;
+            padding: 15px 30px;
+            font-family: 'Arial', sans-serif;
+            font-size: 18px;
+            font-weight: bold;
+            color: #ffffff;
+            background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+            border: none;
+            border-radius: 50px;
+            text-decoration: none;
+            cursor: pointer;
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            animation: pulse 2s infinite;
+          }
+
+          .referral-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.4);
+          }
+
+          .referral-button:active {
+            transform: translateY(0);
+          }
+
+          .tooltip {
+            position: absolute;
+            top: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #333;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+          }
+
+          .referral-button:hover .tooltip {
+            opacity: 1;
+          }
+
+          @keyframes pulse {
+            0% {
+              box-shadow: 0 0 10px rgba(255, 107, 107, 0.3);
+            }
+            50% {
+              box-shadow: 0 0 20px rgba(255, 107, 107, 0.5);
+            }
+            100% {
+              box-shadow: 0 0 10px rgba(255, 107, 107, 0.3);
+            }
+        }
+
+        @media (max-width: 480px) {
+          .referral-button {
+            font-size: 16px;
+            padding: 12px 20px;
+          }
+        }
+      </style>
+
+      <a href="https://freebitco.in/?r=12403380" class="referral-button" target="_blank" rel="noopener noreferrer">
+        Get FREE BitCoins NOW!
+        <span class="tooltip">Earn Bitcoin for signing up!</span>
+      </a>
+
+      <script>
+        // Add click tracking (optional, can be enhanced with analytics)
+        document.querySelector('.referral-button').addEventListener('click', function() {
+          console.log('Referral link clicked!');
+          // Add analytics code here, e.g., Google Analytics event tracking
+        });
+      </script>
+    </div>
+  ]]>
+</content>
 </ad>
