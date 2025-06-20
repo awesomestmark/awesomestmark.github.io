@@ -3,12 +3,12 @@ body {
   margin: 0;
   padding: 0;
   background-color: black;
-  color: #00ff00;
+  color: white;
 }
 
 .ad-container {
-  background-color: #001100;
-  color: #00ff00;
+  background-color: #000000;
+  color: #ffcc00;
   padding: 1rem;
   text-align: center;
   font-size: 1rem;
@@ -23,12 +23,12 @@ body {
 
 #scene-container, #main-content {
   flex: 1;
-  padding: 2rem;
-  font-size: 1.4rem;
+  padding: 0;
+  font-size: 16px;
   line-height: 1.6;
   text-align: center;
   overflow-y: auto;
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
 }
 
@@ -39,74 +39,74 @@ body {
   align-items: center;
 }
 
-#main-content {
+#page-content {
   padding: 0;
   max-width: 90%;
-}
+  }
 
 .nav-wrapper {
-  width: 5vw;
+  width: 50vw;
   min-width: 40px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: center !important;
 }
 
 .nav-arrow svg {
   height: 8vh;
-  fill: #00ff00;
+  fill: #ffcc00;
   opacity: 0.6;
-  transition: transform 0.3s ease, opacity 0.3s ease;
+  transition: transform:none 0.3s ease, opacity 0.3s ease;
 }
 
 .nav-arrow:hover svg {
-  transform: scale(1.2);
-  opacity: 1;
+  transform: none !important;
+  opacity: 0 !important;
 }
 
 .intro-title {
   font-size: 4rem;
   font-weight: bold;
   font-family: 'Courier New', monospace;
-  color: #00ff00;
-  margin: 0;
+  color: #ffcc00;
+  margin: 0 !important;
   text-align: center;
 }
 
 .typewriter-container {
   padding: 0;
-  font-size: 1.5rem;
+  font-size: 16px;
   line-height: 1.6;
   font-family: 'Courier New', monospace;
-  color: #00ff00;
-  text-align: center;
+  color: #ffcc00;
+  text-align: center !important;
   max-width: 90%;
 }
 
 .typewriter-text {
-  white-space: pre-wrap;
+  white-space: nowrap;
   word-break: break-word;
-  color: #00ff00;
+  color: #ffcc00;
 }
 
 /* Intro Overlay */
-.intro-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: black;
-  display: flex;
-  flex-direction: column;
+.page-container {
+  position: absolute;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  background: black !important;
+  display: flex !important;
+  flex-direction: column !important;
   justify-content: center !important;
   align-items: center !important;
-  z-index: 10000;
-  opacity: 1;
-  transition: opacity 0.5s ease;
+  z-index: 10000 !important;
+  opacity: 1 !important;
+  transition: opacity 0.5s ease !important;
 }
 
-.intro-overlay.hidden {
-  opacity: 0;
-  pointer-events: none;
+.page-container.hidden {
+  opacity: 0 !important;
+  pointer-events: none !important;
 }
