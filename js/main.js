@@ -5,8 +5,8 @@ const totalScenes = 2;
 const totalAds = 2;
 
 function runIntroSequence() {
-  const container = document.getElementById("scene-container");
-  container.innerHTML = "";
+  const overlay = document.getElementById("intro-overlay");
+  overlay.innerHTML = "";
 
   // Static Sound Setup
   const audio = new Audio("audio/static_intro.wav");
@@ -14,13 +14,13 @@ function runIntroSequence() {
   // Create title element (big bold intro)
   const titleElem = document.createElement("div");
   titleElem.className = "intro-title";
-  container.appendChild(titleElem);
+  overlay.appendChild(titleElem);
 
   // Create container for typed scene content (below the title)
   const contentElem = document.createElement("div");
   contentElem.id = "main-content";
   contentElem.className = "typewriter-container";
-  container.appendChild(contentElem);
+  overlay.appendChild(contentElem);
 
   // Type "WELCOME TO THE INTERNET"
   const titleText = "WELCOME TO THE INTERNET";
@@ -33,7 +33,14 @@ function runIntroSequence() {
     if (i >= titleText.length) {
       clearInterval(interval);
       setTimeout(() => {
-        loadScene(currentScene, contentElem, 40);
+        // Fade out the overlay
+        overlay.classList.add("hidden");
+        setTimeout(() => {
+          overlay.innerHTML = ""; // Clear overlay content
+          overlay.style.display = "none"; // Remove from rendering
+          // Load the first scene into scene-container
+          loadScene(currentScene, document.getElementById("scene-container"), 40);
+        }, 500); // Match CSS transition duration
       }, 1000);
     }
   }, 150);
@@ -44,7 +51,7 @@ function loadScene(sceneNum, containerOverride = null, speedOverride = 20) {
 
   const fileName = sceneNum < 10 ? `0${sceneNum}` : `${sceneNum}`;
   const path = `xml/${fileName}.xml`;
-  const container = containerOverride || document.getElementById("main-content") || document.getElementById("scene-container");
+  const container = containerOverride || document.getElementById("scene-container");
 
   fetch(path)
     .then(response => {
@@ -110,6 +117,12 @@ function loadAd(adNum) {
       const xml = parser.parseFromString(xmlString, "text/xml");
       const content = xml.getElementsByTagName("content")[0]?.textContent || "";
       document.getElementById("ad-container").innerHTML = content;
+    })
+    .catch(err => {
+      document.getElementById("ad-container").innerHTML = `
+        <p style="color:red; font-weight:bold;">❌ Failed to load: ads/0${adNum}.xml</p>
+      `;
+      console.error("Ad load error:", err);
     });
 }
 
@@ -175,8 +188,9 @@ window.addEventListener("keydown", (e) => {
 const themeNum = Math.floor(Math.random() * 4) + 1;
 document.querySelector('link[rel=stylesheet]').href = `css/0${themeNum}.css`;
 
-document.getElementById("theme-switcher").addEventListener("change", (e) => {
-  const theme = e.target.value;
-  const link = document.querySelector('link[rel=stylesheet]');
-  link.href = `css/0${theme}.css`;
-});
+// Remove theme-switcher event listener since the element doesn't exist
+// document.getElementById("theme-switcher").addEventListener("change", (e) => {
+//   const theme = e.target.value;
+//   const link = document.querySelector('link[rel=stylesheet]');
+//   link.href = `css/0${theme}.css`;
+// });
