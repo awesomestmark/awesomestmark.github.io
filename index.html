@@ -2,29 +2,32 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>markantoineIRL | INTERACTIVE</title>
   <link rel="stylesheet" href="css/base.css" />
-  <link rel="stylesheet" href="css/01.css" />
+  <link id="theme-link" rel="stylesheet" href="" />
 </head>
 <body>
-
   <div id="ad-container" class="ad-container">Loading...</div>
 
-  <div class="nav-left nav-wrapper" id="prev-scene">
-    <svg viewBox="0 0 24 24">
-      <polyline points="15 18 9 12 15 6"></polyline>
-    </svg>
-  </div>
-
-  <div class="nav-right nav-wrapper" id="next-scene">
-    <svg viewBox="0 0 24 24">
-      <polyline points="9 18 15 12 9 6"></polyline>
-    </svg>
-  </div>
-
   <div class="page-container">
+    <div class="nav-left nav-wrapper">
+      <div class="nav-arrow" id="prev-scene">
+        <svg width="48" height="48" viewBox="0 0 24 24">
+          <path fill="currentColor" d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+        </svg>
+      </div>
+    </div>
+
     <div id="scene-container"></div>
+
+    <div class="nav-right nav-wrapper">
+      <div class="nav-arrow" id="next-scene">
+        <svg width="48" height="48" viewBox="0 0 24 24">
+          <path fill="currentColor" d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z"/>
+        </svg>
+      </div>
+    </div>
   </div>
 
   <script src="js/main.js"></script>
