@@ -96,16 +96,16 @@
           }
 
           .theme-02 .ad-box {
-            background: linear-gradient(135deg, #001100, #003300);
+            background: linear-gradient(135deg, #000000, #222222);
           }
           .theme-02 .freebitcoin-ad {
             font-family: 'Courier New', monospace;
-            background: linear-gradient(45deg, #00ff00, #00cc00);
-            color: #000;
+            background: linear-gradient(45deg, #ffcc00, #ffee00);
+            color: #000000;
           }
           .theme-02 .tooltip {
-            background: #001100;
-            color: #00ff00;
+            background: #000000;
+            color: #ffcc00;
           }
 
           .theme-03 .ad-box {
@@ -122,21 +122,21 @@
           }
 
           .theme-04 .ad-box {
-            background: linear-gradient(135deg, #e6e0d4, #fdf6e3);
+            background: linear-gradient(135deg, #000000, #222222);
           }
           .theme-04 .freebitcoin-ad {
             font-family: 'Courier New', monospace;
-            background: linear-gradient(45deg, #004400, #006600);
-            color: #fff;
+            background: linear-gradient(45deg, #ffcc00, #ffee00);
+            color: #000000;
           }
           .theme-04 .tooltip {
-            background: #e6e0d4;
-            color: #004400;
+            background: #000000;
+            color: #ffcc00;
           }
         </style>
 
         <script>
-          const stylesheet = document.querySelector('link[rel="stylesheet]').href;
+          const stylesheet = document.querySelector('link[rel=stylesheet]').href;
           const adBox = document.querySelector('.ad-box');
           if (stylesheet.includes('css/01.css')) {
             adBox.classList.add('theme-01');
@@ -152,14 +152,14 @@
           }
         </script>
 
-        <a href="https://freebitco.in/?r=12403380" class="ad" target="_blank" rel="noopener noreferrer">
+        <a href="https://freebitco.in/?r=12403380" class="freebitcoin-ad" target="_blank" rel="noopener noreferrer">
           Win Bitcoin with FreeBitco.in!
           <span class="tooltip">Start Winning Today!</span>
         </a>
 
         <script>
           document.querySelector('.freebitcoin-ad').addEventListener('click', function() {
-            console.log('FreeBitco.in ad clicked!');
+            console.log('FreeBitcoin ad clicked!');
           });
         </script>
       </div>
