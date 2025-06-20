@@ -13,8 +13,8 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
             position: relative;
             overflow: hidden;
-            opacity: 0; /* Start hidden for fade-in */
-            animation: fadeIn 1s ease-in forwards; /* Fade-in animation */
+            opacity: 0;
+            animation: fadeIn 1s ease-in forwards;
           }
 
           .freebitcoin-ad {
@@ -22,14 +22,13 @@
             padding: 15px 30px;
             font-size: 18px;
             font-weight: bold;
-            color: #ffffff;
             border: none;
             border-radius: 50px;
             text-decoration: none;
             cursor: pointer;
             position: relative;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            animation: pulse 2s infinite; /* Subtle pulse effect */
+            animation: pulse 2s infinite;
           }
 
           .freebitcoin-ad:hover {
@@ -72,28 +71,28 @@
             }
           }
 
-          /* Theme-specific styles */
           .theme-01 .ad-box {
-            background: linear-gradient(135deg, #f4f4f4, #ffffff);
+            background: linear-gradient(135deg, #e0e0e0, #f0f0f0);
           }
           .theme-01 .freebitcoin-ad {
             font-family: 'Courier New', monospace;
-            background: linear-gradient(45deg, #222, #555);
+            background: linear-gradient(45deg, #333, #666);
+            color: #222;
           }
           .theme-01 .tooltip {
-            background: #222;
+            background: #333;
             color: #fff;
           }
           .theme-01.dark-mode .ad-box {
-            background: linear-gradient(135deg, #111, #333);
+            background: linear-gradient(135deg, #222, #444);
           }
           .theme-01.dark-mode .freebitcoin-ad {
-            background: linear-gradient(45deg, #ccc, #fff);
-            color: #222;
+            background: linear-gradient(45deg, #aaa, #ddd);
+            color: #fff;
           }
           .theme-01.dark-mode .tooltip {
-            background: #ccc;
-            color: #222;
+            background: #222;
+            color: #ccc;
           }
 
           .theme-02 .ad-box {
@@ -137,7 +136,6 @@
         </style>
 
         <script>
-          // Apply theme class based on active stylesheet
           const stylesheet = document.querySelector('link[rel=stylesheet]').href;
           const adBox = document.querySelector('.ad-box');
           if (stylesheet.includes('css/01.css')) {
@@ -154,7 +152,7 @@
           }
         </script>
 
-        <a href="https://freebitco.in/?r=12403380" class="freebitcoin-ad" target="_blank" rel="noopener noreferrer">
+        <a href="https://freebitco.in/?r=your_referral_id" class="freebitcoin-ad" target="_blank" rel="noopener noreferrer">
           Win Bitcoin with FreeBitco.in!
           <span class="tooltip">Start Winning Today!</span>
         </a>
