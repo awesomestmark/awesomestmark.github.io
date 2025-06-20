@@ -1,12 +1,9 @@
 let currentScene = 1;
-let currentAd = 1;
-let hasPlayedStatic = false;
-const totalScenes = 2;
-const totalAds = 2;
 
 function runIntroSequence() {
   const overlay = document.getElementById("intro-overlay");
   overlay.innerHTML = "";
+  overlay.style.display = "flex"; // Ensure overlay is visible
 
   // Static Sound Setup
   const audio = new Audio("audio/static_intro.wav");
@@ -15,12 +12,6 @@ function runIntroSequence() {
   const titleElem = document.createElement("div");
   titleElem.className = "intro-title";
   overlay.appendChild(titleElem);
-
-  // Create container for typed scene content (below the title)
-  const contentElem = document.createElement("div");
-  contentElem.id = "main-content";
-  contentElem.className = "typewriter-container";
-  overlay.appendChild(contentElem);
 
   // Type "WELCOME TO THE INTERNET"
   const titleText = "WELCOME TO THE INTERNET";
@@ -36,8 +27,8 @@ function runIntroSequence() {
         // Fade out the overlay
         overlay.classList.add("hidden");
         setTimeout(() => {
-          overlay.innerHTML = ""; // Clear overlay content
-          overlay.style.display = "none"; // Remove from rendering
+          overlay.innerHTML = "";
+          overlay.style.display = "none";
           // Load the first scene into scene-container
           loadScene(currentScene, document.getElementById("scene-container"), 40);
         }, 500); // Match CSS transition duration
@@ -46,151 +37,85 @@ function runIntroSequence() {
   }, 150);
 }
 
-function loadScene(sceneNum, containerOverride = null, speedOverride = 20) {
-  if (sceneNum < 1 || sceneNum > totalScenes) return;
-
-  const fileName = sceneNum < 10 ? `0${sceneNum}` : `${sceneNum}`;
-  const path = `xml/${fileName}.xml`;
-  const container = containerOverride || document.getElementById("scene-container");
-
-  fetch(path)
-    .then(response => {
-      if (!response.ok) throw new Error(`Scene ${fileName}.xml not found (${response.status})`);
-      return response.text();
-    })
-    .then(xmlString => {
+function loadScene(sceneNum, container, typingSpeed = 40) {
+  const sceneUrl = `xml/0${sceneNum}.xml`;
+  fetch(sceneUrl)
+    .then((response) => response.text())
+    .then((data) => {
       const parser = new DOMParser();
-      const xml = parser.parseFromString(xmlString, "text/xml");
-      const content = xml.getElementsByTagName("content")[0]?.textContent || "";
-
-      container.innerHTML = "";
-      animateSceneText(container, content, speedOverride);
-      currentScene = sceneNum;
-      cycleAd();
-      toggleTheme();
-
-      // Play static only once, after user click
-      if (!hasPlayedStatic) {
-        hasPlayedStatic = true;
-        setTimeout(() => {
-          const audio = new Audio("audio/static_intro.wav");
-          audio.play();
-        }, 300);
-      }
+      const xmlDoc = parser.parseFromString(data, "text/xml");
+      const content = xmlDoc.querySelector("content").textContent;
+      typeScene(content, container, typingSpeed);
+      // Load ad content
+      loadAd(sceneNum);
     })
-    .catch((err) => {
-      container.innerHTML = `
-        <p style="color:red; font-weight:bold;">❌ Failed to load: xml/${fileName}.xml</p>
-        <p style="font-size: 0.9rem;">${err.message}</p>
-      `;
-      console.error("Scene load error:", err);
-    });
+    .catch((error) => console.error("Error loading scene:", error));
 }
 
-function animateSceneText(container, html, speed = 20) {
-  const temp = document.createElement("div");
-  temp.innerHTML = html;
-
-  const fullText = temp.textContent || temp.innerText || "";
-  container.classList.add("typewriter-text");
+function typeScene(content, container, typingSpeed) {
   container.innerHTML = "";
+  const contentWrapper = document.createElement("div");
+  contentWrapper.id = "main-content";
+  container.appendChild(contentWrapper);
 
   let i = 0;
   const interval = setInterval(() => {
-    container.textContent += fullText[i];
+    contentWrapper.textContent += content[i];
     i++;
-    if (i >= fullText.length) {
+    if (i >= content.length) {
       clearInterval(interval);
-      container.innerHTML = html;
-      container.classList.remove("typewriter-text");
+      // Setup navigation after content is loaded
+      setupNavigation();
     }
-  }, speed);
+  }, typingSpeed);
 }
 
-function loadAd(adNum) {
-  const path = `ads/0${adNum}.xml`;
-
-  fetch(path)
-    .then(response => response.text())
-    .then(xmlString => {
+function loadAd(sceneNum) {
+  const adContainer = document.getElementById("ad-container");
+  const adUrl = `ads/0${sceneNum}.xml`;
+  fetch(adUrl)
+    .then((response) => response.text())
+    .then((data) => {
       const parser = new DOMParser();
-      const xml = parser.parseFromString(xmlString, "text/xml");
-      const content = xml.getElementsByTagName("content")[0]?.textContent || "";
-      document.getElementById("ad-container").innerHTML = content;
+      const xmlDoc = parser.parseFromString(data, "text/xml");
+      const adContent = xmlDoc.querySelector("content").textContent;
+      adContainer.innerHTML = adContent;
     })
-    .catch(err => {
-      document.getElementById("ad-container").innerHTML = `
-        <p style="color:red; font-weight:bold;">❌ Failed to load: ads/0${adNum}.xml</p>
-      `;
-      console.error("Ad load error:", err);
+    .catch((error) => console.error("Error loading ad:", error));
+}
+
+function setupNavigation() {
+  const navLeft = document.getElementById("nav-left");
+  const navRight = document.getElementById("nav-right");
+
+  navLeft.innerHTML = "";
+  navRight.innerHTML = "";
+
+  if (currentScene > 1) {
+    const leftArrow = document.createElement("div");
+    leftArrow.className = "nav-arrow";
+    leftArrow.innerHTML = `<svg viewBox="0 0 24 24"><path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"/></svg>`;
+    leftArrow.addEventListener("click", () => {
+      currentScene--;
+      loadScene(currentScene, document.getElementById("scene-container"));
     });
-}
-
-function toggleTheme() {
-  const overlay = document.createElement("div");
-  overlay.className = "fade-overlay";
-  document.body.appendChild(overlay);
-
-  overlay.classList.add("active");
-  setTimeout(() => {
-    document.body.classList.toggle("dark-mode");
-    overlay.classList.remove("active");
-    setTimeout(() => {
-      overlay.remove();
-    }, 500);
-  }, 250);
-}
-
-function playVoice(text) {
-  const stripped = text.replace(/<[^>]+>/g, "");
-  const utterance = new SpeechSynthesisUtterance(stripped);
-  utterance.rate = 0.8;
-  utterance.pitch = 1;
-  utterance.volume = 0.9;
-  speechSynthesis.cancel();
-  speechSynthesis.speak(utterance);
-}
-
-function cycleAd() {
-  currentAd = currentAd % totalAds + 1;
-  loadAd(currentAd);
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-  if (Math.random() > 0.5) document.body.classList.add("dark-mode");
-
-  document.getElementById("prev-scene").addEventListener("click", () => {
-    if (currentScene > 1) {
-      loadScene(currentScene - 1);
-    }
-  });
-
-  document.getElementById("next-scene").addEventListener("click", () => {
-    if (currentScene < totalScenes) {
-      loadScene(currentScene + 1);
-    }
-  });
-
-  runIntroSequence();
-});
-
-let input = "";
-const konami = "ArrowUpArrowUpArrowDownArrowDownArrowLeftArrowRightArrowLeftArrowRightba";
-
-window.addEventListener("keydown", (e) => {
-  input += e.key;
-  if (input.includes(konami)) {
-    document.querySelector('link[rel=stylesheet]').href = "css/03.css";
-    input = "";
+    navLeft.appendChild(leftArrow);
   }
-});
 
-const themeNum = Math.floor(Math.random() * 4) + 1;
-document.querySelector('link[rel=stylesheet]').href = `css/0${themeNum}.css`;
+  if (currentScene < 2) {
+    const rightArrow = document.createElement("div");
+    rightArrow.className = "nav-arrow";
+    rightArrow.innerHTML = `<svg viewBox="0 0 24 24"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>`;
+    rightArrow.addEventListener("click", () => {
+      currentScene++;
+      loadScene(currentScene, document.getElementById("scene-container"));
+    });
+    navRight.appendChild(rightArrow);
+  }
+}
 
-// Remove theme-switcher event listener since the element doesn't exist
-// document.getElementById("theme-switcher").addEventListener("change", (e) => {
-//   const theme = e.target.value;
-//   const link = document.querySelector('link[rel=stylesheet]');
-//   link.href = `css/0${theme}.css`;
-// });
+// Set default theme to 03.css (cyberpunk)
+document.querySelector('link[rel=stylesheet]').href = `css/03.css`;
+
+// Start the intro sequence
+runIntroSequence();
