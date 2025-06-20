@@ -1,91 +1,104 @@
 console.log("main.js loaded");
-
-const totalScenes = 2;  // update if more scenes exist
-const totalAds = 3;     // update if more ads exist
-
-let currentScene = 1;
-let currentAd = 1;
-let hasPlayedStatic = false;
-
 document.addEventListener("DOMContentLoaded", () => {
-  console.log("DOM loaded");
-  loadRandomTheme();
-  loadAd(currentAd);
-  loadScene(currentScene);
+  console.log("DOM fully loaded");
 
+  // Navigation click handlers
   document.getElementById("next-scene").addEventListener("click", () => {
-    currentScene = currentScene >= totalScenes ? 1 : currentScene + 1;
+    currentScene++;
+    if (currentScene > totalScenes) currentScene = 1;
     loadScene(currentScene);
-    currentAd = currentAd >= totalAds ? 1 : currentAd + 1;
-    loadAd(currentAd);
   });
 
   document.getElementById("prev-scene").addEventListener("click", () => {
-    currentScene = currentScene <= 1 ? totalScenes : currentScene - 1;
+    currentScene--;
+    if (currentScene < 1) currentScene = totalScenes;
     loadScene(currentScene);
-    currentAd = currentAd <= 1 ? totalAds : currentAd - 1;
-    loadAd(currentAd);
   });
+
+  runIntroSequence();
 });
 
-function loadRandomTheme() {
-  const themeNumber = Math.floor(Math.random() * 4) + 1; // 1 to 4
-  const linkId = "theme-style";
-  let themeLink = document.getElementById(linkId);
+let currentScene = 1;
+const totalScenes = 2;
 
-  if (!themeLink) {
-    themeLink = document.createElement("link");
-    themeLink.rel = "stylesheet";
-    themeLink.id = linkId;
-    document.head.appendChild(themeLink);
-  }
+function runIntroSequence() {
+  const container = document.getElementById("scene-container");
+  container.innerHTML = "";
 
-  themeLink.href = `css/0${themeNumber}.css`;
-  console.log("Theme loaded:", themeLink.href);
+  const audio = new Audio("audio/static_intro.wav");
+
+  const titleElem = document.createElement("div");
+  titleElem.className = "intro-title";
+  container.appendChild(titleElem);
+
+  const contentElem = document.createElement("div");
+  contentElem.id = "main-content";
+  contentElem.className = "typewriter-container";
+  container.appendChild(contentElem);
+
+  const titleText = "WELCOME TO THE INTERNET";
+  let i = 0;
+  audio.play();
+
+  const interval = setInterval(() => {
+    titleElem.textContent += titleText[i];
+    i++;
+    if (i >= titleText.length) {
+      clearInterval(interval);
+      setTimeout(() => {
+        titleElem.remove();
+        loadScene(currentScene, contentElem, 40);
+      }, 1000);
+    }
+  }, 150);
 }
 
-function loadScene(sceneNum) {
-  const sceneContainer = document.getElementById("scene-container");
+function loadScene(sceneNum, containerOverride = null, speedOverride = 20) {
+  if (sceneNum < 1 || sceneNum > totalScenes) return;
+
   const fileName = sceneNum < 10 ? `0${sceneNum}` : `${sceneNum}`;
-  const url = `xml/${fileName}.xml`;
+  const path = `xml/${fileName}.xml`;
+  const container = containerOverride || document.getElementById("main-content") || document.getElementById("scene-container");
 
-  fetch(url)
-    .then((res) => {
-      if (!res.ok) throw new Error(`Could not load ${url} - Status: ${res.status}`);
-      return res.text();
+  fetch(path)
+    .then(response => {
+      if (!response.ok) throw new Error(`Scene ${fileName}.xml not found (${response.status})`);
+      return response.text();
     })
-    .then((xmlText) => {
+    .then(xmlString => {
       const parser = new DOMParser();
-      const xml = parser.parseFromString(xmlText, "text/xml");
-      const content = xml.querySelector("content").textContent || "";
-      sceneContainer.innerHTML = content;
-      console.log(`Scene ${sceneNum} loaded.`);
+      const xml = parser.parseFromString(xmlString, "text/xml");
+      const content = xml.getElementsByTagName("content")[0]?.textContent || "";
+
+      container.innerHTML = "";
+      animateSceneText(container, content, speedOverride);
+      currentScene = sceneNum;
     })
     .catch((err) => {
-      sceneContainer.innerHTML = `<p style="color:red;">Error loading scene: ${err.message}</p>`;
-      console.error(err);
+      container.innerHTML = `
+        <p style="color:red; font-weight:bold;">❌ Failed to load: xml/${fileName}.xml</p>
+        <p style="font-size: 0.9rem;">${err.message}</p>
+      `;
+      console.error("Scene load error:", err);
     });
 }
 
-function loadAd(adNum) {
-  const adContainer = document.getElementById("ad-container");
-  const fileName = adNum < 10 ? `0${adNum}` : `${adNum}`;
-  const url = `ads/${fileName}.xml`;
+function animateSceneText(container, html, speed = 20) {
+  const temp = document.createElement("div");
+  temp.innerHTML = html;
 
-  fetch(url)
-    .then((res) => {
-      if (!res.ok) throw new Error(`Could not load ${url} - Status: ${res.status}`);
-      return res.text();
-    })
-    .then((xmlText) => {
-      const parser = new DOMParser();
-      const xml = parser.parseFromString(xmlText, "text/xml");
-      const content = xml.querySelector("content").textContent || "";
-      adContainer.innerHTML = content;
-      console.log(`Ad ${adNum} loaded.`);
-    })
-    .catch((err) => {
-      adContainer.innerHTML = `<p style="color:red;">Error loading ad: ${err.message}</p>`;
-      console.error(err);
-    });
+  const fullText = temp.textContent || temp.innerText || "";
+  container.classList.add("typewriter-text");
+  container.innerHTML = "";
+
+  let i = 0;
+  const interval = setInterval(() => {
+    container.textContent += fullText[i];
+    i++;
+    if (i >= fullText.length) {
+      clearInterval(interval);
+      container.innerHTML = html;
+      container.classList.remove("typewriter-text");
+    }
+  }, speed);
 }
