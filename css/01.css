@@ -1,5 +1,5 @@
 body {
-  font-family: 'Roboto', monospace;
+  font-family: 'Courier New', monospace;
   margin: 0;
   padding: 0;
   background-color: white;
@@ -12,7 +12,6 @@ body.dark-mode {
   color: white;
 }
 
-/* Ad Box at Top */
 .ad-container {
   text-align: center;
   padding: 1rem;
@@ -26,7 +25,6 @@ body.dark-mode .ad-container {
   color: #ccc;
 }
 
-/* Page container holds everything else */
 .page-container {
   display: flex;
   flex-direction: row;
@@ -34,7 +32,6 @@ body.dark-mode .ad-container {
   width: 100vw;
 }
 
-/* Scene Text Content */
 #scene-container {
   flex: 1;
   padding: 2rem;
@@ -48,17 +45,15 @@ body.dark-mode .ad-container {
   align-items: center;
 }
 
-/* Page content */
 #main-content {
   padding: 0;
   font-size: 1.5rem;
   line-height: 1.6;
-  font-family: 'Roboto', monospace;
+  font-family: 'Courier New', monospace;
   text-align: center;
   max-width: 90%;
 }
 
-/* Navigation Buttons */
 .nav-wrapper {
   width: 5vw;
   min-width: 40px;
@@ -80,15 +75,14 @@ body.dark-mode .ad-container {
 .nav-arrow svg {
   height: 8vh;
   opacity: 0.5;
-  transition: transform 0.4s ease, opacity 0.3s ease;
+  transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
 .nav-arrow:hover svg {
-  transform: scale(1);.25
+  transform: scale(1.25);
   opacity: 0.95;
 }
 
-/* Scene Styling */
 h1.welcome {
   font-size: 3rem;
   font-weight: 900;
@@ -105,11 +99,12 @@ p.subtext {
   margin-top: 1rem;
 }
 
-/* Fade animation */
 .fade-overlay {
   position: fixed;
-  top: 0; left: 0;
-  width: 100vw; height: 100vh;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
   background: #000;
   opacity: 0;
   transition: opacity 0.5s;
@@ -121,7 +116,6 @@ p.subtext {
   opacity: 1;
 }
 
-/* Intro Full Screen Styling */
 #scene-container.intro {
   background: black;
   color: white;
@@ -132,44 +126,41 @@ p.subtext {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh !important;
+  height: 100vh;
 }
 
-/* Intro title text */
 .intro-title {
   font-size: 4rem;
   font-weight: bold;
-  font-family: 'Roboto', monospace;
+  font-family: 'Courier New', monospace;
   color: white;
   margin: 0;
   text-align: center;
 }
 
-/* Typing phase font matches final layout */
 .typewriter-container {
   padding: 0;
   font-size: 1.5rem;
   line-height: 1.6;
-  font-family: 'Roboto', monospace;
+  font-family: 'Courier New', monospace;
   text-align: center;
   max-width: 90%;
 }
 
-/* Intro Overlay */
 .intro-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: black;
-  display: flex !important;
-  flex-direction: column !important;
-  justify-content: center !important;
-  align-items: center !important;
-  z-index: 10000 !important;
-  opacity: 1 !important;
-  transition: opacity 0.5s ease !important;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  opacity: 1;
+  transition: opacity 0.5s ease;
 }
 
 body.dark-mode .intro-overlay {
@@ -178,12 +169,11 @@ body.dark-mode .intro-overlay {
 }
 
 .intro-overlay.hidden {
-  opacity: 0 !important;
-  pointer-events: none !important;
+  opacity: 0;
+  pointer-events: none;
 }
 
-/* Mobile Fixes */
-@media (max-width: 600px), (orientation: portrait) {
+@media (max-width: 900px), (orientation: portrait) {
   .page-container {
     flex-direction: column;
     height: auto;
