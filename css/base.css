@@ -2,38 +2,67 @@ body {
   font-family: 'Courier New', monospace;
   margin: 0;
   padding: 0;
-  background-color: #fff;
-  color: #000;
+  background-color: white;
+  color: black;
+  transition: background-color 0.5s ease, color 0.5s ease;
 }
 
 .page-container {
   display: flex;
+  justify-content: space-between;
   align-items: center;
+  max-width: 900px;
+  margin: 20px auto;
+  padding: 10px;
+}
+
+.nav-wrapper {
+  flex: 0 0 50px;
+  display: flex;
   justify-content: center;
-  height: 80vh;
+  align-items: center;
+}
+
+.nav-arrow {
+  cursor: pointer;
+  color: black;
+  width: 48px;
+  height: 48px;
+  user-select: none;
+  transition: color 0.3s ease;
+}
+
+.nav-arrow:hover {
+  color: #ffcc00;
 }
 
 #scene-container {
-  padding: 1rem;
-  max-width: 600px;
+  flex: 1 1 auto;
+  padding: 20px;
   min-height: 200px;
   border: 1px solid #ccc;
-  background: #fafafa;
+  font-size: 18px;
+  line-height: 1.4;
 }
 
 .ad-container {
+  max-width: 900px;
+  margin: 0 auto 10px auto;
   padding: 10px;
   text-align: center;
-  background: #ddd;
   font-weight: bold;
+  color: #333;
 }
 
-.nav-left, .nav-right {
-  width: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  user-select: none;
-  font-size: 2rem;
+.typewriter-text {
+  white-space: pre-wrap;
+  font-family: 'Courier New', monospace;
+  border-right: 2px solid black;
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  50% {
+    border-color: transparent;
+  }
 }
