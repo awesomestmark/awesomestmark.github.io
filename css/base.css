@@ -1,5 +1,3 @@
-/* Reset and base */
-
 * {
   box-sizing: border-box;
   margin: 0;
@@ -8,113 +6,124 @@
 
 body {
   font-family: 'Courier New', monospace;
-  background-color: white;
+  background: white;
   color: black;
   overflow-x: hidden;
 }
 
-/* Navigation arrows fixed */
+/* Ad container */
+#ad-container {
+  width: 100%;
+  padding: 10px;
+  text-align: center;
+}
 
-.nav-left {
+/* Navigation Arrows */
+.nav-wrapper {
   position: fixed;
   top: 50%;
-  left: 5%;
   transform: translateY(-50%);
-  width: 60px;
-  height: 60px;
+  width: 72px;
+  height: 72px;
   display: flex;
   justify-content: center;
   align-items: center;
+  background: transparent;
+  z-index: 9999;
   cursor: pointer;
-  z-index: 10000;
-  user-select: none;
-  color: #222;
-  transition: transform 0.3s ease, color 0.3s ease;
+  transition: transform 0.3s ease;
+}
+
+.nav-wrapper svg {
+  width: 64px;
+  height: 64px;
+  stroke: black;
+  stroke-width: 3.5;
+  fill: none;
+  transition: transform 0.2s ease, stroke 0.2s ease;
+}
+
+.nav-left {
+  left: 2%;
 }
 
 .nav-right {
-  position: fixed;
-  top: 50%;
-  right: 5%;
-  transform: translateY(-50%);
-  width: 60px;
-  height: 60px;
+  right: 2%;
+}
+
+.nav-wrapper:hover svg {
+  transform: scale(1.4);
+  stroke-width: 4.5;
+}
+
+/* Page container centered */
+.page-container {
+  max-width: 1000px;
+  width: 90vw;
+  height: 80vh;
+  margin: 0 auto;
   display: flex;
   justify-content: center;
   align-items: center;
-  cursor: pointer;
-  z-index: 10000;
-  user-select: none;
-  color: #222;
-  transition: transform 0.3s ease, color 0.3s ease;
-}
-
-.nav-left svg,
-.nav-right svg {
-  width: 48px;
-  height: 48px;
-  stroke-width: 2.5;
-  transition: transform 0.3s ease, stroke 0.3s ease;
-}
-
-.nav-left:hover {
-  transform: translate(calc(5% + 5px), -50%) scale(1.25);
-  color: #ffcc00;
-}
-
-.nav-right:hover {
-  transform: translate(calc(-5% - 5px), -50%) scale(1.25);
-  color: #ffcc00;
-}
-
-.nav-left:hover svg,
-.nav-right:hover svg {
-  stroke: #ffcc00;
-}
-
-/* Main page container fixed size */
-
-.page-container {
-  max-width: 900px;
-  width: 90vw;
-  height: 70vh;
-  margin: 0 auto;
   overflow-y: auto;
   position: relative;
-  border: none;
-  padding: 0;
-  box-sizing: border-box;
+  padding: 0 20px;
 }
 
-/* Scene container fills parent */
-
+/* Scene container fills the container */
 #scene-container {
   width: 100%;
-  height: 100%;
-  overflow-wrap: break-word;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-  border: none !important;
-  box-shadow: none !important;
+  height: auto;
+  padding: 20px;
+  font-size: 1.1rem;
 }
 
-/* Responsive for mobile / portrait */
+/* Typewriter containers */
+.typewriter-container {
+  font-family: 'Courier New', monospace;
+  white-space: pre-wrap;
+}
 
+.typewriter-text {
+  font-family: 'Courier New', monospace;
+  white-space: pre-wrap;
+}
+
+/* Headings */
+h1.welcome {
+  font-size: 2.5rem;
+  margin-bottom: 0.5em;
+}
+
+p.subtext {
+  font-size: 1.2rem;
+  opacity: 0.85;
+}
+
+/* Mobile Responsive */
 @media (max-width: 768px) {
+  .nav-wrapper {
+    width: 60px;
+    height: 60px;
+  }
+
+  .nav-wrapper svg {
+    width: 48px;
+    height: 48px;
+  }
+
+  .nav-wrapper:hover svg {
+    transform: scale(1.3);
+  }
+
   .page-container {
-    height: 60vh;
+    height: auto;
     width: 95vw;
+    padding: 10px;
   }
 
-  .nav-left,
-  .nav-right {
-    width: 50px;
-    height: 50px;
-  }
-
-  .nav-left svg,
-  .nav-right svg {
-    width: 36px;
-    height: 36px;
+  #scene-container {
+    padding: 10px;
+    font-size: 1rem;
   }
 }
