@@ -1,20 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Welcome to the Internet</title>
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/03.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>markantoineIRL | INTERACTIVE</title>
+  <link rel="stylesheet" href="css/01.css" />
 </head>
 <body>
-  <div id="intro-overlay" class="intro-overlay"></div>
-  <div id="ad-container" class="ad-container"></div>
+  <!-- Ad Container -->
+  <div id="ad-container" class="ad-container">Loading...</div>
+
+  <!-- Scene Content and Navigation -->
   <div class="page-container">
-    <div id="nav-left" class="nav-wrapper nav-left"></div>
+    <div class="nav-left nav-wrapper">
+      <div class="nav-arrow" id="prev-scene">
+        <svg width="48" height="48" viewBox="0 0 24 24">
+          <path fill="currentColor" d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+        </svg>
+      </div>
+    </div>
+
     <div id="scene-container"></div>
-    <div id="nav-right" class="nav-wrapper nav-right"></div>
+
+    <div class="nav-right nav-wrapper">
+      <div class="nav-arrow" id="next-scene">
+        <svg width="48" height="48" viewBox="0 0 24 24">
+          <path fill="currentColor" d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z"/>
+        </svg>
+      </div>
+    </div>
   </div>
+
   <script src="js/main.js"></script>
 </body>
 </html>
