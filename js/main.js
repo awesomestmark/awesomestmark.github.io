@@ -2,26 +2,36 @@ let currentScene = 1;
 
 function runIntroSequence() {
   const overlay = document.getElementById("intro-overlay");
-  overlay.innerHTML = "";
-  overlay.style.display = "flex"; // Ensure overlay is visible
+  overlay.innerHTML = '';
+  overlay.style.display = "flex";
+  overlay.style.height = '100vh';
+  overlay.style.position = 'fixed';
+  overlay.style.top = '0';
+  overlay.style.left = '0';
+  overlay.style.justifyContent = 'center';
+  overlay.style.alignItems = 'center';
 
   // Static Sound Setup
   const audio = new Audio("audio/static_intro.wav");
 
-  // Create title element (big bold intro)
+  // Create title element
   const titleElem = document.createElement("div");
   titleElem.className = "intro-title";
+  titleElem.style.display = 'flex';
+  titleElem.style.justifyContent = 'center';
+  titleElem.style.alignItems = 'center';
+  titleElem.style.height = '100%';
   overlay.appendChild(titleElem);
 
   // Type "WELCOME TO THE INTERNET"
-  const titleText = "WELCOME TO THE INTERNET";
+  const typeText = "WELCOME TO THE INTERNET";
   let i = 0;
   audio.play();
 
   const interval = setInterval(() => {
-    titleElem.textContent += titleText[i];
+    titleElem.textContent += typeText[i];
     i++;
-    if (i >= titleText.length) {
+    if (i >= typeText.length) {
       clearInterval(interval);
       setTimeout(() => {
         // Fade out the overlay
@@ -31,7 +41,7 @@ function runIntroSequence() {
           overlay.style.display = "none";
           // Load the first scene into scene-container
           loadScene(currentScene, document.getElementById("scene-container"), 40);
-        }, 500); // Match CSS transition duration
+        }, 500);
       }, 1000);
     }
   }, 150);
