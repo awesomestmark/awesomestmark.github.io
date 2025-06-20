@@ -8,7 +8,7 @@ body {
 
 .ad-container {
   background: #1a002a;
-  color: #ff00ff;
+  color: #ffcc00;
   text-align: center;
   padding: 1rem;
 }
@@ -30,6 +30,18 @@ body {
   margin: 0 auto;
 }
 
+#scene-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#main-content {
+  padding: 0;
+  max-width: 90%;
+}
+
 .nav-wrapper {
   width: 5vw;
   min-width: 40px;
@@ -40,7 +52,7 @@ body {
 
 .nav-arrow svg {
   height: 8vh;
-  fill: #ff00ff;
+  fill: #ffcc00;
   opacity: 0.6;
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
@@ -54,26 +66,26 @@ body {
   font-size: 4rem;
   font-weight: bold;
   font-family: 'Orbitron', sans-serif;
-  color: #ff00ff;
-  text-shadow: 0 0 20px #ff00ff;
-  margin: 0; /* Remove margin */
-  text-align: center; /* Ensure centering */
+  color: #ffcc00;
+  text-shadow: 0 0 20px #ffcc00;
+  margin: 0;
+  text-align: center;
 }
 
 .typewriter-container {
-  padding: 0; /* Remove padding */
+  padding: 0;
   font-size: 1.5rem;
   line-height: 1.6;
   font-family: 'Orbitron', sans-serif;
-  color: #ff00ff;
-  text-align: center; /* Ensure centering */
+  color: #ffcc00;
+  text-align: center;
   max-width: 90%;
 }
 
 .typewriter-text {
   white-space: pre-wrap;
   word-break: break-word;
-  color: #ff00ff;
+  color: #ffcc00;
 }
 
 /* Intro Overlay */
@@ -83,12 +95,12 @@ body {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: #0f0f1a; /* Matches body background */
+  background: #0f0f1a;
   display: flex;
   flex-direction: column;
-  justify-content: center !important; /* Force centering */
-  align-items: center !important; /* Force centering */
-  z-index: 10000; /* Above all other content */
+  justify-content: center !important;
+  align-items: center !important;
+  z-index: 10000;
   opacity: 1;
   transition: opacity 0.5s ease;
 }
