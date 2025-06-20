@@ -135,23 +135,20 @@ p.subtext {
 .intro-title {
   font-size: 4rem;
   font-weight: bold;
-  font-family: monospace;
+  font-family: 'Courier New', monospace;
   color: white;
-  margin-bottom: 2rem;
+  margin: 0; /* Remove margin */
+  text-align: center; /* Ensure centering */
 }
 
 /* Typing phase font matches final layout */
 .typewriter-container {
-  padding: 2rem;
+  padding: 0; /* Remove padding */
   font-size: 1.5rem;
   line-height: 1.6;
   font-family: 'Courier New', monospace;
-  text-align: center;
-}
-
-.typewriter-text {
-  white-space: pre-wrap;
-  word-break: break-word;
+  text-align: center; /* Ensure centering */
+  max-width: 90%;
 }
 
 /* Intro Overlay */
@@ -164,8 +161,8 @@ p.subtext {
   background: white; /* Matches body background in light mode */
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  justify-content: center !important; /* Force centering */
+  align-items: center !important; /* Force centering */
   z-index: 10000; /* Above all other content */
   opacity: 1;
   transition: opacity 0.5s ease;
