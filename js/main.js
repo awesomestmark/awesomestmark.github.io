@@ -2,44 +2,39 @@ let currentScene = 1;
 
 function runIntroSequence() {
   const overlay = document.getElementById("intro-overlay");
-  overlay.innerHTML = '';
+  overlay.innerHTML = "";
   overlay.style.display = "flex";
-  overlay.style.height = '100vh';
-  overlay.style.position = 'fixed';
-  overlay.style.top = '0';
-  overlay.style.left = '0';
-  overlay.style.justifyContent = 'center';
-  overlay.style.alignItems = 'center';
+  overlay.style.height = "100vh";
+  overlay.style.position = "fixed";
+  overlay.style.top = "0";
+  overlay.style.left = "0";
+  overlay.style.justifyContent = "center";
+  overlay.style.alignItems = "center";
 
-  // Static Sound Setup
   const audio = new Audio("audio/static_intro.wav");
 
-  // Create title element
   const titleElem = document.createElement("div");
   titleElem.className = "intro-title";
-  titleElem.style.display = 'flex';
-  titleElem.style.justifyContent = 'center';
-  titleElem.style.alignItems = 'center';
-  titleElem.style.height = '100%';
+  titleElem.style.display = "flex";
+  titleElem.style.justifyContent = "center";
+  titleElem.style.alignItems = "center";
+  titleElem.style.height = "100%";
   overlay.appendChild(titleElem);
 
-  // Type "WELCOME TO THE INTERNET"
-  const typeText = "WELCOME TO THE INTERNET";
+  const titleText = "WELCOME TO THE INTERNET";
   let i = 0;
   audio.play();
 
   const interval = setInterval(() => {
-    titleElem.textContent += typeText[i];
+    titleElem.textContent += titleText[i];
     i++;
-    if (i >= typeText.length) {
+    if (i >= titleText.length) {
       clearInterval(interval);
       setTimeout(() => {
-        // Fade out the overlay
         overlay.classList.add("hidden");
         setTimeout(() => {
           overlay.innerHTML = "";
           overlay.style.display = "none";
-          // Load the first scene into scene-container
           loadScene(currentScene, document.getElementById("scene-container"), 40);
         }, 500);
       }, 1000);
@@ -56,7 +51,6 @@ function loadScene(sceneNum, container, typingSpeed = 40) {
       const xmlDoc = parser.parseFromString(data, "text/xml");
       const content = xmlDoc.querySelector("content").textContent;
       typeScene(content, container, typingSpeed);
-      // Load ad content
       loadAd(sceneNum);
     })
     .catch((error) => console.error("Error loading scene:", error));
@@ -74,7 +68,6 @@ function typeScene(content, container, typingSpeed) {
     i++;
     if (i >= content.length) {
       clearInterval(interval);
-      // Setup navigation after content is loaded
       setupNavigation();
     }
   }, typingSpeed);
@@ -124,8 +117,6 @@ function setupNavigation() {
   }
 }
 
-// Set default theme to 03.css (cyberpunk)
 document.querySelector('link[rel=stylesheet]').href = `css/03.css`;
 
-// Start the intro sequence
 runIntroSequence();
