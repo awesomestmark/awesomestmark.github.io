@@ -29,7 +29,7 @@ function runIntroSequence() {
     if (i >= titleText.length) {
       clearInterval(interval);
       setTimeout(() => {
-        titleElem.remove(); // <-- remove the intro title here
+        titleElem.remove();
         loadScene(currentScene, contentElem, 40);
       }, 1000);
     }
@@ -103,76 +103,4 @@ function loadAd(adNum) {
     .then(response => response.text())
     .then(xmlString => {
       const parser = new DOMParser();
-      const xml = parser.parseFromString(xmlString, "text/xml");
-      const content = xml.getElementsByTagName("content")[0]?.textContent || "";
-      document.getElementById("ad-container").innerHTML = content;
-    });
-}
-
-function toggleTheme() {
-  const overlay = document.createElement("div");
-  overlay.className = "fade-overlay";
-  document.body.appendChild(overlay);
-
-  overlay.classList.add("active");
-  setTimeout(() => {
-    document.body.classList.toggle("dark-mode");
-    overlay.classList.remove("active");
-    setTimeout(() => {
-      overlay.remove();
-    }, 500);
-  }, 250);
-}
-
-function playVoice(text) {
-  const stripped = text.replace(/<[^>]+>/g, "");
-  const utterance = new SpeechSynthesisUtterance(stripped);
-  utterance.rate = 0.8;
-  utterance.pitch = 1;
-  utterance.volume = 0.9;
-  speechSynthesis.cancel();
-  speechSynthesis.speak(utterance);
-}
-
-function cycleAd() {
-  currentAd = currentAd % totalAds + 1;
-  loadAd(currentAd);
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-  if (Math.random() > 0.5) document.body.classList.add("dark-mode");
-
-  document.getElementById("prev-scene").addEventListener("click", () => {
-    if (currentScene > 1) {
-      loadScene(currentScene - 1);
-    }
-  });
-
-  document.getElementById("next-scene").addEventListener("click", () => {
-    if (currentScene < totalScenes) {
-      loadScene(currentScene + 1);
-    }
-  });
-
-  runIntroSequence();
-});
-
-let input = "";
-const konami = "ArrowUpArrowUpArrowDownArrowDownArrowLeftArrowRightArrowLeftArrowRightba";
-
-window.addEventListener("keydown", (e) => {
-  input += e.key;
-  if (input.includes(konami)) {
-    document.querySelector('link[rel=stylesheet]').href = "css/03.css";
-    input = "";
-  }
-});
-
-const themeNum = Math.floor(Math.random() * 4) + 1;
-document.querySelector('link[rel=stylesheet]').href = `css/0${themeNum}.css`;
-
-document.getElementById("theme-switcher")?.addEventListener("change", (e) => {
-  const theme = e.target.value;
-  const link = document.querySelector('link[rel=stylesheet]');
-  link.href = `css/0${theme}.css`;
-});
+      const xml = parse
