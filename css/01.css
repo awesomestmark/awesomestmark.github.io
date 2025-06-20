@@ -1,5 +1,5 @@
 body {
-  font-family: 'Courier New', monospace;
+  font-family: 'Roboto', monospace;
   margin: 0;
   padding: 0;
   background-color: white;
@@ -48,12 +48,12 @@ body.dark-mode .ad-container {
   align-items: center;
 }
 
-/* Main content block (below intro title) */
+/* Page content */
 #main-content {
   padding: 0;
   font-size: 1.5rem;
   line-height: 1.6;
-  font-family: 'Courier New', monospace;
+  font-family: 'Roboto', monospace;
   text-align: center;
   max-width: 90%;
 }
@@ -80,11 +80,11 @@ body.dark-mode .ad-container {
 .nav-arrow svg {
   height: 8vh;
   opacity: 0.5;
-  transition: transform 0.3s ease, opacity 0.3s ease;
+  transition: transform 0.4s ease, opacity 0.3s ease;
 }
 
 .nav-arrow:hover svg {
-  transform: scale(1.25);
+  transform: scale(1);.25
   opacity: 0.95;
 }
 
@@ -132,14 +132,14 @@ p.subtext {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 100vh !important;
 }
 
 /* Intro title text */
 .intro-title {
   font-size: 4rem;
   font-weight: bold;
-  font-family: 'Courier New', monospace;
+  font-family: 'Roboto', monospace;
   color: white;
   margin: 0;
   text-align: center;
@@ -150,7 +150,7 @@ p.subtext {
   padding: 0;
   font-size: 1.5rem;
   line-height: 1.6;
-  font-family: 'Courier New', monospace;
+  font-family: 'Roboto', monospace;
   text-align: center;
   max-width: 90%;
 }
@@ -162,14 +162,14 @@ p.subtext {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: white;
-  display: flex;
-  flex-direction: column;
+  background: black;
+  display: flex !important;
+  flex-direction: column !important;
   justify-content: center !important;
   align-items: center !important;
-  z-index: 10000;
-  opacity: 1;
-  transition: opacity 0.5s ease;
+  z-index: 10000 !important;
+  opacity: 1 !important;
+  transition: opacity 0.5s ease !important;
 }
 
 body.dark-mode .intro-overlay {
@@ -178,12 +178,12 @@ body.dark-mode .intro-overlay {
 }
 
 .intro-overlay.hidden {
-  opacity: 0;
-  pointer-events: none;
+  opacity: 0 !important;
+  pointer-events: none !important;
 }
 
 /* Mobile Fixes */
-@media (max-width: 900px), (orientation: portrait) {
+@media (max-width: 600px), (orientation: portrait) {
   .page-container {
     flex-direction: column;
     height: auto;
