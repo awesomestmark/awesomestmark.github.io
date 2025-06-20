@@ -9,37 +9,30 @@
             justify-content: center;
             align-items: center;
             padding: 20px;
-            background: linear-gradient(135deg, #f0f4f8, #ffffff);
             border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
             position: relative;
             overflow: hidden;
           }
 
-          .referral-button {
+          .cyber-ad-button {
             display: inline-block;
             padding: 15px 30px;
-            font-family: 'Arial', sans-serif;
             font-size: 18px;
             font-weight: bold;
             color: #ffffff;
-            background: linear-gradient(45deg, #ff6b6b, #ff8e53);
             border: none;
             border-radius: 50px;
             text-decoration: none;
             cursor: pointer;
             position: relative;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            animation: pulse 2s infinite;
+            animation: neon-glow 1.5s infinite;
           }
 
-          .referral-button:hover {
+          .cyber-ad-button:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.4);
-          }
-
-          .referral-button:active {
-            transform: translateY(0);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
           }
 
           .tooltip {
@@ -47,8 +40,6 @@
             top: -40px;
             left: 50%;
             transform: translateX(-50%);
-            background: #333;
-            color: #fff;
             padding: 5px 10px;
             border-radius: 5px;
             font-size: 12px;
@@ -57,43 +48,116 @@
             pointer-events: none;
           }
 
-          .referral-button:hover .tooltip {
+          .cyber-ad-button:hover .tooltip {
             opacity: 1;
           }
 
-          @keyframes pulse {
-            0% {
-              box-shadow: 0 0 10px rgba(255, 107, 107, 0.3);
-            }
-            50% {
-              box-shadow: 0 0 20px rgba(255, 107, 107, 0.5);
-            }
-            100% {
-              box-shadow: 0 0 10px rgba(255, 107, 107, 0.3);
-            }
-        }
-
-        @media (max-width: 480px) {
-          .referral-button {
-            font-size: 16px;
-            padding: 12px 20px;
+          @keyframes neon-glow {
+            0% { box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); }
+            50% { box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); }
+            100% { box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); }
           }
-        }
-      </style>
 
-      <a href="https://freebitco.in/?r=12403380" class="referral-button" target="_blank" rel="noopener noreferrer">
-        Join Freebitco.in Now!
-        <span class="tooltip">Earn Bitcoin for signing up!</span>
-      </a>
+          @media (max-width: 480px) {
+            .cyber-ad-button {
+              font-size: 16px;
+              padding: 12px 20px;
+            }
+          }
 
-      <script>
-        // Add click tracking (optional, can be enhanced with analytics)
-        document.querySelector('.referral-button').addEventListener('click', function() {
-          console.log('Referral link clicked!');
-          // Add analytics code here, e.g., Google Analytics event tracking
-        });
-      </script>
-    </div>
-  ]]>
-</content>
+          /* Theme-specific styles */
+          .theme-01 .ad-box {
+            background: linear-gradient(135deg, #f4f4f4, #ffffff);
+          }
+          .theme-01 .cyber-ad-button {
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(45deg, #222, #555);
+          }
+          .theme-01 .tooltip {
+            background: #222;
+            color: #fff;
+          }
+          .theme-01.dark-mode .ad-box {
+            background: linear-gradient(135deg, #111, #333);
+          }
+          .theme-01.dark-mode .cyber-ad-button {
+            background: linear-gradient(45deg, #ccc, #fff);
+            color: #222;
+          }
+          .theme-01.dark-mode .tooltip {
+            background: #ccc;
+            color: #222;
+          }
+
+          .theme-02 .ad-box {
+            background: linear-gradient(135deg, #001100, #003300);
+          }
+          .theme-02 .cyber-ad-button {
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(45deg, #00ff00, #00cc00);
+            color: #000;
+          }
+          .theme-02 .tooltip {
+            background: #001100;
+            color: #00ff00;
+          }
+
+          .theme-03 .ad-box {
+            background: linear-gradient(135deg, #1a002a, #2a004a);
+          }
+          .theme-03 .cyber-ad-button {
+            font-family: 'Orbitron', sans-serif;
+            background: linear-gradient(45deg, #ff00ff, #00ffff);
+            color: #0f0f1a;
+          }
+          .theme-03 .tooltip {
+            background: #0f0f1a;
+            color: #ff00ff;
+          }
+
+          .theme-04 .ad-box {
+            background: linear-gradient(135deg, #e6e0d4, #fdf6e3);
+          }
+          .theme-04 .cyber-ad-button {
+            font-family: 'Courier New', monospace;
+            background: linear-gradient(45deg, #004400, #006600);
+            color: #fff;
+          }
+          .theme-04 .tooltip {
+            background: #e6e0d4;
+            color: #004400;
+          }
+        </style>
+
+        <script>
+          // Apply theme class based on active stylesheet
+          const stylesheet = document.querySelector('link[rel=stylesheet]').href;
+          const adBox = document.querySelector('.ad-box');
+          if (stylesheet.includes('css/01.css')) {
+            adBox.classList.add('theme-01');
+            if (document.body.classList.contains('dark-mode')) {
+              adBox.classList.add('dark-mode');
+            }
+          } else if (stylesheet.includes('css/02.css')) {
+            adBox.classList.add('theme-02');
+          } else if (stylesheet.includes('css/03.css')) {
+            adBox.classList.add('theme-03');
+          } else if (stylesheet.includes('css/04.css')) {
+            adBox.classList.add('theme-04');
+          }
+        </script>
+
+        <a href="https://example.com/cyber-gadget" class="cyber-ad-button" target="_blank" rel="noopener noreferrer">
+          Get Your Cyber-Gadget Now!
+          <span class="tooltip">Unlock the Future!</span>
+        </a>
+
+        <script>
+          document.querySelector('.cyber-ad-button').addEventListener('click', function() {
+            console.log('Cyber-Gadget ad clicked!');
+          });
+        </script>
+      </div>
+    ]]>
+  </content>
 </ad>
