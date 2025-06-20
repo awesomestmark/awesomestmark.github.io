@@ -2,16 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>markantoineIRL | INTERACTIVE</title>
-  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/base.css" id="base-style" />
 </head>
 <body>
   <div id="ad-container" class="ad-container">Loading...</div>
 
   <div class="page-container">
     <div class="nav-left nav-wrapper">
-      <div class="nav-arrow" id="prev-scene">
+      <div class="nav-arrow" id="prev-scene" role="button" tabindex="0" aria-label="Previous Scene">
         <svg width="48" height="48" viewBox="0 0 24 24">
           <path fill="currentColor" d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
         </svg>
@@ -21,7 +21,7 @@
     <div id="scene-container"></div>
 
     <div class="nav-right nav-wrapper">
-      <div class="nav-arrow" id="next-scene">
+      <div class="nav-arrow" id="next-scene" role="button" tabindex="0" aria-label="Next Scene">
         <svg width="48" height="48" viewBox="0 0 24 24">
           <path fill="currentColor" d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z"/>
         </svg>
