@@ -136,7 +136,7 @@
         </style>
 
         <script>
-          const stylesheet = document.querySelector('link[rel=stylesheet]').href;
+          const stylesheet = document.querySelector('link[rel="stylesheet]').href;
           const adBox = document.querySelector('.ad-box');
           if (stylesheet.includes('css/01.css')) {
             adBox.classList.add('theme-01');
@@ -152,14 +152,14 @@
           }
         </script>
 
-        <a href="https://freebitco.in/?r=your_referral_id" class="freebitcoin-ad" target="_blank" rel="noopener noreferrer">
+        <a href="https://freebitco.in/?r=12403380" class="ad" target="_blank" rel="noopener noreferrer">
           Win Bitcoin with FreeBitco.in!
           <span class="tooltip">Start Winning Today!</span>
         </a>
 
         <script>
           document.querySelector('.freebitcoin-ad').addEventListener('click', function() {
-            console.log('FreeBitcoin ad clicked!');
+            console.log('FreeBitco.in ad clicked!');
           });
         </script>
       </div>
