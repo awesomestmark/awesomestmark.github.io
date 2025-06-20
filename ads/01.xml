@@ -13,9 +13,11 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
             position: relative;
             overflow: hidden;
+            opacity: 0; /* Start hidden for fade-in */
+            animation: fadeIn 1s ease-in forwards; /* Fade-in animation */
           }
 
-          .cyber-ad-button {
+          .freebitcoin-ad {
             display: inline-block;
             padding: 15px 30px;
             font-size: 18px;
@@ -27,10 +29,10 @@
             cursor: pointer;
             position: relative;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            animation: neon-glow 1.5s infinite;
+            animation: pulse 2s infinite; /* Subtle pulse effect */
           }
 
-          .cyber-ad-button:hover {
+          .freebitcoin-ad:hover {
             transform: translateY(-3px);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
           }
@@ -48,18 +50,23 @@
             pointer-events: none;
           }
 
-          .cyber-ad-button:hover .tooltip {
+          .freebitcoin-ad:hover .tooltip {
             opacity: 1;
           }
 
-          @keyframes neon-glow {
-            0% { box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); }
-            50% { box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); }
-            100% { box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); }
+          @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+          }
+
+          @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
           }
 
           @media (max-width: 480px) {
-            .cyber-ad-button {
+            .freebitcoin-ad {
               font-size: 16px;
               padding: 12px 20px;
             }
@@ -69,7 +76,7 @@
           .theme-01 .ad-box {
             background: linear-gradient(135deg, #f4f4f4, #ffffff);
           }
-          .theme-01 .cyber-ad-button {
+          .theme-01 .freebitcoin-ad {
             font-family: 'Courier New', monospace;
             background: linear-gradient(45deg, #222, #555);
           }
@@ -80,7 +87,7 @@
           .theme-01.dark-mode .ad-box {
             background: linear-gradient(135deg, #111, #333);
           }
-          .theme-01.dark-mode .cyber-ad-button {
+          .theme-01.dark-mode .freebitcoin-ad {
             background: linear-gradient(45deg, #ccc, #fff);
             color: #222;
           }
@@ -92,7 +99,7 @@
           .theme-02 .ad-box {
             background: linear-gradient(135deg, #001100, #003300);
           }
-          .theme-02 .cyber-ad-button {
+          .theme-02 .freebitcoin-ad {
             font-family: 'Courier New', monospace;
             background: linear-gradient(45deg, #00ff00, #00cc00);
             color: #000;
@@ -105,7 +112,7 @@
           .theme-03 .ad-box {
             background: linear-gradient(135deg, #1a002a, #2a004a);
           }
-          .theme-03 .cyber-ad-button {
+          .theme-03 .freebitcoin-ad {
             font-family: 'Orbitron', sans-serif;
             background: linear-gradient(45deg, #ff00ff, #00ffff);
             color: #0f0f1a;
@@ -118,7 +125,7 @@
           .theme-04 .ad-box {
             background: linear-gradient(135deg, #e6e0d4, #fdf6e3);
           }
-          .theme-04 .cyber-ad-button {
+          .theme-04 .freebitcoin-ad {
             font-family: 'Courier New', monospace;
             background: linear-gradient(45deg, #004400, #006600);
             color: #fff;
@@ -147,14 +154,14 @@
           }
         </script>
 
-        <a href="https://example.com/cyber-gadget" class="cyber-ad-button" target="_blank" rel="noopener noreferrer">
-          Get Your Cyber-Gadget Now!
-          <span class="tooltip">Unlock the Future!</span>
+        <a href="https://freebitco.in/?r=12403380" class="freebitcoin-ad" target="_blank" rel="noopener noreferrer">
+          Earn Free Bitcoin Now!
+          <span class="tooltip">Join freebitco.in Today!</span>
         </a>
 
         <script>
-          document.querySelector('.cyber-ad-button').addEventListener('click', function() {
-            console.log('Cyber-Gadget ad clicked!');
+          document.querySelector('.freebitcoin-ad').addEventListener('click', function() {
+            console.log('FreeBitcoin ad clicked!');
           });
         </script>
       </div>
