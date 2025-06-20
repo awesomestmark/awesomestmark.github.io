@@ -1,9 +1,16 @@
-console.log("main.js loaded");
 document.addEventListener("DOMContentLoaded", () => {
-  console.log("DOM fully loaded");
+  const themeId = Math.floor(Math.random() * 4) + 1;
+  document.getElementById("theme-link").href = `css/0${themeId}.css`;
+
   runIntroSequence();
-  document.getElementById("prev-scene").addEventListener("click", () => loadScene(currentScene - 1));
-  document.getElementById("next-scene").addEventListener("click", () => loadScene(currentScene + 1));
+
+  document.getElementById("prev-scene").addEventListener("click", () => {
+    if (currentScene > 1) loadScene(currentScene - 1);
+  });
+
+  document.getElementById("next-scene").addEventListener("click", () => {
+    if (currentScene < totalScenes) loadScene(currentScene + 1);
+  });
 });
 
 let currentScene = 1;
@@ -17,8 +24,10 @@ function runIntroSequence() {
   container.innerHTML = "";
 
   const audio = new Audio("audio/static_intro.wav");
+
   const titleElem = document.createElement("div");
   titleElem.className = "intro-title";
+  titleElem.textContent = "";
   container.appendChild(titleElem);
 
   const contentElem = document.createElement("div");
@@ -38,9 +47,9 @@ function runIntroSequence() {
       setTimeout(() => {
         titleElem.remove();
         loadScene(currentScene, contentElem, 40);
-      }, 800);
+      }, 1000);
     }
-  }, 100);
+  }, 150);
 }
 
 function loadScene(sceneNum, containerOverride = null, speedOverride = 20) {
@@ -52,7 +61,7 @@ function loadScene(sceneNum, containerOverride = null, speedOverride = 20) {
 
   fetch(path)
     .then(response => {
-      if (!response.ok) throw new Error(`Scene ${fileName}.xml not found`);
+      if (!response.ok) throw new Error(`Scene ${fileName}.xml not found (${response.status})`);
       return response.text();
     })
     .then(xmlString => {
@@ -65,17 +74,17 @@ function loadScene(sceneNum, containerOverride = null, speedOverride = 20) {
       currentScene = sceneNum;
       cycleAd();
     })
-    .catch((err) => {
-      container.innerHTML = `<p style="color:red;">❌ Failed to load: ${fileName}.xml</p>`;
-      console.error(err);
+    .catch(err => {
+      container.innerHTML = `<p style="color:red;">❌ Failed to load: xml/${fileName}.xml</p>`;
+      console.error("Scene load error:", err);
     });
 }
 
 function animateSceneText(container, html, speed = 20) {
   const temp = document.createElement("div");
   temp.innerHTML = html;
-
   const fullText = temp.textContent || temp.innerText || "";
+
   container.classList.add("typewriter-text");
   container.innerHTML = "";
 
@@ -95,15 +104,15 @@ function cycleAd() {
   const adPath = `ads/0${currentAd}.xml`;
   fetch(adPath)
     .then(response => response.text())
-    .then(xmlString => {
+    .then(xml => {
       const parser = new DOMParser();
-      const xml = parser.parseFromString(xmlString, "text/xml");
-      const adContent = xml.getElementsByTagName("content")[0]?.textContent || "";
-      document.getElementById("ad-container").innerHTML = adContent;
+      const doc = parser.parseFromString(xml, "text/xml");
+      const content = doc.querySelector("content").textContent;
+      document.getElementById("ad-container").innerHTML = content;
       currentAd = (currentAd % totalAds) + 1;
     })
     .catch(err => {
-      document.getElementById("ad-container").innerHTML = `<p style="color:red;">Ad failed</p>`;
-      console.error(err);
+      document.getElementById("ad-container").innerHTML = `<p style="color:red;">❌ Ad load failed</p>`;
+      console.error("Ad load error:", err);
     });
 }
