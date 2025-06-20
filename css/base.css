@@ -11,10 +11,18 @@ body {
   overflow-x: hidden;
 }
 
+/* Intro Title */
+.intro-title {
+  font-size: 3rem;
+  font-weight: bold;
+  text-align: center;
+  margin: 60px auto;
+}
+
 /* Ad container */
 #ad-container {
   width: 100%;
-  padding: 10px;
+  padding: 12px;
   text-align: center;
 }
 
@@ -58,27 +66,25 @@ body {
 
 /* Page container centered */
 .page-container {
-  max-width: 1000px;
-  width: 90vw;
-  height: 80vh;
+  max-width: 960px;
+  width: 95%;
+  height: calc(100vh - 80px);
   margin: 0 auto;
   display: flex;
   justify-content: center;
   align-items: center;
   overflow-y: auto;
   position: relative;
-  padding: 0 20px;
 }
 
-/* Scene container fills the container */
+/* Scene container fills container */
 #scene-container {
   width: 100%;
-  height: auto;
-  padding: 20px;
-  font-size: 1.1rem;
+  padding: 30px;
+  font-size: 1.2rem;
 }
 
-/* Typewriter containers */
+/* Typewriter container */
 .typewriter-container {
   font-family: 'Courier New', monospace;
   white-space: pre-wrap;
@@ -89,7 +95,7 @@ body {
   white-space: pre-wrap;
 }
 
-/* Headings */
+/* Scene-specific content */
 h1.welcome {
   font-size: 2.5rem;
   margin-bottom: 0.5em;
@@ -110,10 +116,6 @@ p.subtext {
   .nav-wrapper svg {
     width: 48px;
     height: 48px;
-  }
-
-  .nav-wrapper:hover svg {
-    transform: scale(1.3);
   }
 
   .page-container {
