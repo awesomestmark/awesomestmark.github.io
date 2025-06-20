@@ -160,3 +160,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   runIntroSequence();
 });
+
+let input = "";
+const konami = "ArrowUpArrowUpArrowDownArrowDownArrowLeftArrowRightArrowLeftArrowRightba";
+
+window.addEventListener("keydown", (e) => {
+  input += e.key;
+  if (input.includes(konami)) {
+    document.querySelector('link[rel=stylesheet]').href = "css/03.css";
+    input = "";
+  }
+});
+
