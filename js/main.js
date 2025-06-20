@@ -1,119 +1,75 @@
-console.log("main.js loaded");
+// ... your existing main.js code above remains the same ...
 
-document.addEventListener("DOMContentLoaded", () => {
-  console.log("DOM fully loaded");
-  runIntroSequence();
-});
-
-let currentScene = 1;
-let currentAd = 1;
-let hasPlayedStatic = false;
-const totalScenes = 2;
-const totalAds = 2;
-
-function runIntroSequence() {
-  const container = document.getElementById("scene-container");
-  container.innerHTML = "";
-
-  const audio = new Audio("audio/static_intro.wav");
-
-  const titleElem = document.createElement("div");
-  titleElem.className = "intro-title";
-  container.appendChild(titleElem);
-
-  const contentElem = document.createElement("div");
-  contentElem.id = "main-content";
-  contentElem.className = "typewriter-container";
-  container.appendChild(contentElem);
-
-  const titleText = "WELCOME TO THE INTERNET";
-  let i = 0;
-  audio.play();
-
-  const interval = setInterval(() => {
-    titleElem.textContent += titleText[i];
-    i++;
-    if (i >= titleText.length) {
-      clearInterval(interval);
-      setTimeout(() => {
-        titleElem.remove();
-        loadScene(currentScene, contentElem, 40);
-      }, 1000);
-    }
-  }, 150);
-}
-
-function loadScene(sceneNum, containerOverride = null, speedOverride = 20) {
-  if (sceneNum < 1 || sceneNum > totalScenes) return;
-
-  const fileName = sceneNum < 10 ? `0${sceneNum}` : `${sceneNum}`;
-  const path = `xml/${fileName}.xml`;
-  const container = containerOverride || document.getElementById("main-content") || document.getElementById("scene-container");
-
-  console.log(`Loading scene file: ${path}`);
+function loadAd(adNum) {
+  if (adNum < 1 || adNum > totalAds) return;
+  const fileName = adNum < 10 ? `0${adNum}` : `${adNum}`;
+  const path = `ads/${fileName}.xml`;
+  const adContainer = document.getElementById("ad-container");
+  console.log(`Loading ad file: ${path}`);
 
   fetch(path)
     .then(response => {
-      if (!response.ok) throw new Error(`Scene ${fileName}.xml not found (${response.status})`);
+      if (!response.ok) throw new Error(`Ad ${fileName}.xml not found (${response.status})`);
       return response.text();
     })
     .then(xmlString => {
-      console.log(`Scene ${fileName} XML loaded`);
+      console.log(`Ad ${fileName} XML loaded`);
       const parser = new DOMParser();
       const xml = parser.parseFromString(xmlString, "text/xml");
       const contentElem = xml.getElementsByTagName("content")[0];
-      if (!contentElem) throw new Error("No <content> tag found in XML");
+      if (!contentElem) throw new Error("No <content> tag found in ad XML");
       const content = contentElem.textContent || "";
 
-      container.innerHTML = "";
-      animateSceneText(container, content, speedOverride);
-      currentScene = sceneNum;
-      cycleAd();
-      toggleTheme();
+      adContainer.innerHTML = content;
 
-      if (!hasPlayedStatic) {
-        hasPlayedStatic = true;
-        setTimeout(() => {
-          const audio = new Audio("audio/static_intro.wav");
-          audio.play();
-        }, 300);
-      }
+      applyAdTheme(adContainer);
+      setupAdEventListeners(adContainer);
+
+      currentAd = adNum;
     })
     .catch((err) => {
-      container.innerHTML = `
-        <p style="color:red; font-weight:bold;">❌ Failed to load: xml/${fileName}.xml</p>
+      adContainer.innerHTML = `
+        <p style="color:red; font-weight:bold;">❌ Failed to load: ads/${fileName}.xml</p>
         <p style="font-size: 0.9rem;">${err.message}</p>
       `;
-      console.error("Scene load error:", err);
+      console.error("Ad load error:", err);
     });
 }
 
-function animateSceneText(container, html, speed = 20) {
-  const temp = document.createElement("div");
-  temp.innerHTML = html;
+function applyAdTheme(adContainer) {
+  const stylesheet = document.querySelector('link[rel=stylesheet]').href;
+  const adBox = adContainer.querySelector('.ad-box');
+  if (!adBox) return;
 
-  const fullText = temp.textContent || temp.innerText || "";
-  container.classList.add("typewriter-text");
-  container.innerHTML = "";
+  adBox.classList.remove('theme-01', 'theme-02', 'theme-03', 'theme-04', 'dark-mode');
 
-  let i = 0;
-  const interval = setInterval(() => {
-    container.textContent += fullText[i];
-    i++;
-    if (i >= fullText.length) {
-      clearInterval(interval);
-      container.innerHTML = html;
-      container.classList.remove("typewriter-text");
+  if (stylesheet.includes('css/01.css')) {
+    adBox.classList.add('theme-01');
+    if (document.body.classList.contains('dark-mode')) {
+      adBox.classList.add('dark-mode');
     }
-  }, speed);
+  } else if (stylesheet.includes('css/02.css')) {
+    adBox.classList.add('theme-02');
+  } else if (stylesheet.includes('css/03.css')) {
+    adBox.classList.add('theme-03');
+  } else if (stylesheet.includes('css/04.css')) {
+    adBox.classList.add('theme-04');
+  }
 }
 
-function cycleAd() {
-  // Placeholder for your ad cycling logic
-  console.log("cycleAd called");
-}
+function setupAdEventListeners(adContainer) {
+  const freebitcoinAd = adContainer.querySelector('.freebitcoin-ad');
+  if (freebitcoinAd) {
+    freebitcoinAd.addEventListener('click', () => {
+      console.log('FreeBitcoin ad clicked!');
+    });
+  }
 
-function toggleTheme() {
-  // Placeholder for your theme toggling logic
-  console.log("toggleTheme called");
+  const referralButton = adContainer.querySelector('.referral-button');
+  if (referralButton) {
+    referralButton.addEventListener('click', () => {
+      console.log('Referral link clicked!');
+      // Add analytics code here if needed
+    });
+  }
 }
