@@ -1,7 +1,24 @@
+/* Reset and base */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Courier New', monospace;
+  background-color: white;
+  color: black;
+  overflow-x: hidden;
+}
+
+/* Navigation arrows fixed */
+
 .nav-left {
   position: fixed;
   top: 50%;
-  left: 5%; /* 5% from left */
+  left: 5%;
   transform: translateY(-50%);
   width: 60px;
   height: 60px;
@@ -9,7 +26,7 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  z-index: 1000;
+  z-index: 10000;
   user-select: none;
   color: #222;
   transition: transform 0.3s ease, color 0.3s ease;
@@ -18,7 +35,7 @@
 .nav-right {
   position: fixed;
   top: 50%;
-  right: 5%; /* 5% from right */
+  right: 5%;
   transform: translateY(-50%);
   width: 60px;
   height: 60px;
@@ -26,13 +43,14 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  z-index: 1000;
+  z-index: 10000;
   user-select: none;
   color: #222;
   transition: transform 0.3s ease, color 0.3s ease;
 }
 
-.nav-arrow svg {
+.nav-left svg,
+.nav-right svg {
   width: 48px;
   height: 48px;
   stroke-width: 2.5;
@@ -40,16 +58,63 @@
 }
 
 .nav-left:hover {
-  transform: translate(calc(5% + 5px), -50%) scale(1.25); /* shift right 5% + 5px and grow 25% */
+  transform: translate(calc(5% + 5px), -50%) scale(1.25);
   color: #ffcc00;
 }
 
 .nav-right:hover {
-  transform: translate(calc(-5% - 5px), -50%) scale(1.25); /* shift left 5% + 5px and grow 25% */
+  transform: translate(calc(-5% - 5px), -50%) scale(1.25);
   color: #ffcc00;
 }
 
 .nav-left:hover svg,
 .nav-right:hover svg {
   stroke: #ffcc00;
+}
+
+/* Main page container fixed size */
+
+.page-container {
+  max-width: 900px;
+  width: 90vw;
+  height: 70vh;
+  margin: 0 auto;
+  overflow-y: auto;
+  position: relative;
+  border: none;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Scene container fills parent */
+
+#scene-container {
+  width: 100%;
+  height: 100%;
+  overflow-wrap: break-word;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Responsive for mobile / portrait */
+
+@media (max-width: 768px) {
+  .page-container {
+    height: 60vh;
+    width: 95vw;
+  }
+
+  .nav-left,
+  .nav-right {
+    width: 50px;
+    height: 50px;
+  }
+
+  .nav-left svg,
+  .nav-right svg {
+    width: 36px;
+    height: 36px;
+  }
 }
