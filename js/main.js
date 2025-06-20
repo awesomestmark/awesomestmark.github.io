@@ -1,4 +1,134 @@
-// ... your existing main.js code above remains the same ...
+console.log("main.js loaded");
+
+const totalScenes = 2;
+const totalAds = 3;
+let currentScene = 1;
+let currentAd = 1;
+let hasPlayedStatic = false;
+const themeCssFiles = ["css/01.css", "css/02.css", "css/03.css", "css/04.css"];
+
+// Load random theme CSS on page load
+function loadRandomTheme() {
+  const randomIndex = Math.floor(Math.random() * themeCssFiles.length);
+  const themePath = themeCssFiles[randomIndex];
+  let linkTag = document.getElementById("theme-style");
+
+  if (!linkTag) {
+    linkTag = document.createElement("link");
+    linkTag.rel = "stylesheet";
+    linkTag.id = "theme-style";
+    document.head.appendChild(linkTag);
+  }
+
+  linkTag.href = themePath;
+  console.log("Loaded theme CSS:", themePath);
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  loadRandomTheme();
+
+  runIntroSequence();
+
+  // Setup nav buttons
+  document.getElementById("prev-scene").addEventListener("click", () => {
+    let newScene = currentScene - 1;
+    if (newScene < 1) newScene = totalScenes;
+    loadScene(newScene);
+  });
+
+  document.getElementById("next-scene").addEventListener("click", () => {
+    let newScene = currentScene + 1;
+    if (newScene > totalScenes) newScene = 1;
+    loadScene(newScene);
+  });
+});
+
+function runIntroSequence() {
+  const container = document.getElementById("scene-container");
+  container.innerHTML = "";
+
+  const audio = new Audio("audio/static_intro.wav");
+
+  const titleElem = document.createElement("div");
+  titleElem.className = "intro-title";
+  container.appendChild(titleElem);
+
+  const contentElem = document.createElement("div");
+  contentElem.id = "main-content";
+  contentElem.className = "typewriter-container";
+  container.appendChild(contentElem);
+
+  const titleText = "WELCOME TO THE INTERNET";
+  let i = 0;
+  audio.play();
+
+  const interval = setInterval(() => {
+    titleElem.textContent += titleText[i];
+    i++;
+    if (i >= titleText.length) {
+      clearInterval(interval);
+      setTimeout(() => {
+        titleElem.remove();
+        loadScene(currentScene, contentElem, 40);
+        loadAd(currentAd);
+      }, 1000);
+    }
+  }, 150);
+}
+
+function loadScene(sceneNum, containerOverride = null, speedOverride = 20) {
+  if (sceneNum < 1 || sceneNum > totalScenes) return;
+
+  const fileName = sceneNum < 10 ? `0${sceneNum}` : `${sceneNum}`;
+  const path = `xml/${fileName}.xml`;
+  const container = containerOverride || document.getElementById("main-content") || document.getElementById("scene-container");
+
+  fetch(path)
+    .then(response => {
+      if (!response.ok) throw new Error(`Scene ${fileName}.xml not found (${response.status})`);
+      return response.text();
+    })
+    .then(xmlString => {
+      const parser = new DOMParser();
+      const xml = parser.parseFromString(xmlString, "text/xml");
+      const content = xml.getElementsByTagName("content")[0]?.textContent || "";
+
+      container.innerHTML = "";
+      animateSceneText(container, content, speedOverride);
+      currentScene = sceneNum;
+
+      cycleAd();
+      // Optionally switch theme on scene change:
+      // loadRandomTheme();
+    })
+    .catch((err) => {
+      container.innerHTML = `
+        <p style="color:red; font-weight:bold;">❌ Failed to load: xml/${fileName}.xml</p>
+        <p style="font-size: 0.9rem;">${err.message}</p>
+      `;
+      console.error("Scene load error:", err);
+    });
+}
+
+function animateSceneText(container, html, speed = 20) {
+  const temp = document.createElement("div");
+  temp.innerHTML = html;
+
+  const fullText = temp.textContent || temp.innerText || "";
+  container.classList.add("typewriter-text");
+  container.innerHTML = "";
+
+  let i = 0;
+  const interval = setInterval(() => {
+    container.textContent += fullText[i];
+    i++;
+    if (i >= fullText.length) {
+      clearInterval(interval);
+      container.innerHTML = html;
+      container.classList.remove("typewriter-text");
+    }
+  }, speed);
+}
 
 function loadAd(adNum) {
   if (adNum < 1 || adNum > totalAds) return;
@@ -13,7 +143,6 @@ function loadAd(adNum) {
       return response.text();
     })
     .then(xmlString => {
-      console.log(`Ad ${fileName} XML loaded`);
       const parser = new DOMParser();
       const xml = parser.parseFromString(xmlString, "text/xml");
       const contentElem = xml.getElementsByTagName("content")[0];
@@ -36,8 +165,15 @@ function loadAd(adNum) {
     });
 }
 
+// Cycle ad for next scene load
+function cycleAd() {
+  currentAd++;
+  if (currentAd > totalAds) currentAd = 1;
+  loadAd(currentAd);
+}
+
 function applyAdTheme(adContainer) {
-  const stylesheet = document.querySelector('link[rel=stylesheet]').href;
+  const stylesheet = document.getElementById("theme-style")?.href || "";
   const adBox = adContainer.querySelector('.ad-box');
   if (!adBox) return;
 
@@ -69,7 +205,6 @@ function setupAdEventListeners(adContainer) {
   if (referralButton) {
     referralButton.addEventListener('click', () => {
       console.log('Referral link clicked!');
-      // Add analytics code here if needed
     });
   }
 }
