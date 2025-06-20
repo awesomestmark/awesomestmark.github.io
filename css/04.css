@@ -1,7 +1,4 @@
 body {
-  font-family: 'Courier New', monospace;
-  margin: 0;
-  padding: 0;
   background-color: #fdf6e3;
   color: #004400;
 }
@@ -9,57 +6,13 @@ body {
 .ad-container {
   background-color: #e6e0d4;
   color: #004400;
-  padding: 1rem;
-  text-align: center;
-  font-size: 1rem;
-}
-
-.page-container {
-  display: flex;
-  flex-direction: row;
-  height: calc(100vh - 60px);
-  width: 100vw;
-}
-
-#scene-container, #main-content {
-  flex: 1;
-  padding: 2rem;
-  font-size: 1.4rem;
-  line-height: 1.6;
-  text-align: center;
-  max-width: 850px;
-  margin: 0 auto;
-}
-
-.nav-wrapper {
-  width: 5vw;
-  min-width: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .nav-arrow svg {
-  height: 8vh;
   fill: #004400;
-  opacity: 0.5;
-  transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-.nav-arrow:hover svg {
-  transform: scale(1.2);
-  opacity: 1;
-}
-
-.intro-title {
-  font-size: 4rem;
-  font-weight: bold;
-  color: #004400;
-  margin-bottom: 2rem;
-}
-
+.intro-title,
 .typewriter-text {
-  white-space: pre-wrap;
-  word-break: break-word;
   color: #004400;
 }
