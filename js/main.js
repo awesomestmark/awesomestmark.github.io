@@ -1,32 +1,22 @@
 console.log("main.js loaded");
 document.addEventListener("DOMContentLoaded", () => {
   console.log("DOM fully loaded");
-
-  // Navigation click handlers
-  document.getElementById("next-scene").addEventListener("click", () => {
-    currentScene++;
-    if (currentScene > totalScenes) currentScene = 1;
-    loadScene(currentScene);
-  });
-
-  document.getElementById("prev-scene").addEventListener("click", () => {
-    currentScene--;
-    if (currentScene < 1) currentScene = totalScenes;
-    loadScene(currentScene);
-  });
-
   runIntroSequence();
+  document.getElementById("prev-scene").addEventListener("click", () => loadScene(currentScene - 1));
+  document.getElementById("next-scene").addEventListener("click", () => loadScene(currentScene + 1));
 });
 
 let currentScene = 1;
+let currentAd = 1;
+let hasPlayedStatic = false;
 const totalScenes = 2;
+const totalAds = 3;
 
 function runIntroSequence() {
   const container = document.getElementById("scene-container");
   container.innerHTML = "";
 
   const audio = new Audio("audio/static_intro.wav");
-
   const titleElem = document.createElement("div");
   titleElem.className = "intro-title";
   container.appendChild(titleElem);
@@ -48,9 +38,9 @@ function runIntroSequence() {
       setTimeout(() => {
         titleElem.remove();
         loadScene(currentScene, contentElem, 40);
-      }, 1000);
+      }, 800);
     }
-  }, 150);
+  }, 100);
 }
 
 function loadScene(sceneNum, containerOverride = null, speedOverride = 20) {
@@ -62,7 +52,7 @@ function loadScene(sceneNum, containerOverride = null, speedOverride = 20) {
 
   fetch(path)
     .then(response => {
-      if (!response.ok) throw new Error(`Scene ${fileName}.xml not found (${response.status})`);
+      if (!response.ok) throw new Error(`Scene ${fileName}.xml not found`);
       return response.text();
     })
     .then(xmlString => {
@@ -73,13 +63,11 @@ function loadScene(sceneNum, containerOverride = null, speedOverride = 20) {
       container.innerHTML = "";
       animateSceneText(container, content, speedOverride);
       currentScene = sceneNum;
+      cycleAd();
     })
     .catch((err) => {
-      container.innerHTML = `
-        <p style="color:red; font-weight:bold;">❌ Failed to load: xml/${fileName}.xml</p>
-        <p style="font-size: 0.9rem;">${err.message}</p>
-      `;
-      console.error("Scene load error:", err);
+      container.innerHTML = `<p style="color:red;">❌ Failed to load: ${fileName}.xml</p>`;
+      console.error(err);
     });
 }
 
@@ -101,4 +89,21 @@ function animateSceneText(container, html, speed = 20) {
       container.classList.remove("typewriter-text");
     }
   }, speed);
+}
+
+function cycleAd() {
+  const adPath = `ads/0${currentAd}.xml`;
+  fetch(adPath)
+    .then(response => response.text())
+    .then(xmlString => {
+      const parser = new DOMParser();
+      const xml = parser.parseFromString(xmlString, "text/xml");
+      const adContent = xml.getElementsByTagName("content")[0]?.textContent || "";
+      document.getElementById("ad-container").innerHTML = adContent;
+      currentAd = (currentAd % totalAds) + 1;
+    })
+    .catch(err => {
+      document.getElementById("ad-container").innerHTML = `<p style="color:red;">Ad failed</p>`;
+      console.error(err);
+    });
 }
