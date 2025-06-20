@@ -1,68 +1,55 @@
-body {
-  font-family: 'Courier New', monospace;
-  margin: 0;
-  padding: 0;
-  background-color: white;
-  color: black;
-  transition: background-color 0.5s ease, color 0.5s ease;
-}
-
-.page-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  max-width: 900px;
-  margin: 20px auto;
-  padding: 10px;
-}
-
-.nav-wrapper {
-  flex: 0 0 50px;
+.nav-left {
+  position: fixed;
+  top: 50%;
+  left: 5%; /* 5% from left */
+  transform: translateY(-50%);
+  width: 60px;
+  height: 60px;
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
+  z-index: 1000;
+  user-select: none;
+  color: #222;
+  transition: transform 0.3s ease, color 0.3s ease;
 }
 
-.nav-arrow {
+.nav-right {
+  position: fixed;
+  top: 50%;
+  right: 5%; /* 5% from right */
+  transform: translateY(-50%);
+  width: 60px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
-  color: black;
+  z-index: 1000;
+  user-select: none;
+  color: #222;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.nav-arrow svg {
   width: 48px;
   height: 48px;
-  user-select: none;
-  transition: color 0.3s ease;
+  stroke-width: 2.5;
+  transition: transform 0.3s ease, stroke 0.3s ease;
 }
 
-.nav-arrow:hover {
+.nav-left:hover {
+  transform: translate(calc(5% + 5px), -50%) scale(1.25); /* shift right 5% + 5px and grow 25% */
   color: #ffcc00;
 }
 
-#scene-container {
-  flex: 1 1 auto;
-  padding: 20px;
-  min-height: 200px;
-  border: 1px solid #ccc;
-  font-size: 18px;
-  line-height: 1.4;
+.nav-right:hover {
+  transform: translate(calc(-5% - 5px), -50%) scale(1.25); /* shift left 5% + 5px and grow 25% */
+  color: #ffcc00;
 }
 
-.ad-container {
-  max-width: 900px;
-  margin: 0 auto 10px auto;
-  padding: 10px;
-  text-align: center;
-  font-weight: bold;
-  color: #333;
-}
-
-.typewriter-text {
-  white-space: pre-wrap;
-  font-family: 'Courier New', monospace;
-  border-right: 2px solid black;
-  animation: blink 1s step-end infinite;
-}
-
-@keyframes blink {
-  50% {
-    border-color: transparent;
-  }
+.nav-left:hover svg,
+.nav-right:hover svg {
+  stroke: #ffcc00;
 }
