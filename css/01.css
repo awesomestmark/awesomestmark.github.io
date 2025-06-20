@@ -1,6 +1,12 @@
+01.css
+
 body {
+  font-family: 'Courier New', monospace;
+  margin: 0;
+  padding: 0;
   background-color: white;
   color: black;
+  transition: background-color 0.5s ease, color 0.5s ease;
 }
 
 body.dark-mode {
@@ -8,7 +14,11 @@ body.dark-mode {
   color: white;
 }
 
+/* Ad Box at Top */
 .ad-container {
+  text-align: center;
+  padding: 1rem;
+  font-size: 1rem;
   background: #f4f4f4;
   color: #222;
 }
@@ -16,4 +26,159 @@ body.dark-mode {
 body.dark-mode .ad-container {
   background: #111;
   color: #ccc;
+}
+
+/* Page container holds everything else */
+.page-container {
+  display: flex;
+  flex-direction: row;
+  height: calc(100vh - 60px);
+  width: 100vw;
+}
+
+/* Scene Text Content */
+#scene-container {
+  flex: 1;
+  padding: 2rem;
+  font-size: 1.5rem;
+  line-height: 1.6;
+  text-align: center;
+  overflow-y: auto;
+
+  /* For intro alignment */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Main content block (below intro title) */
+#main-content {
+  padding: 2rem;
+  font-size: 1.5rem;
+  line-height: 1.6;
+  font-family: 'Courier New', monospace;
+  text-align: center;
+  max-width: 800px;
+}
+
+/* Navigation Buttons */
+.nav-wrapper {
+  width: 5vw;
+  min-width: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 10;
+}
+
+.nav-left {
+  justify-content: flex-start;
+}
+
+.nav-right {
+  justify-content: flex-end;
+}
+
+.nav-arrow svg {
+  height: 8vh;
+  opacity: 0.5;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.nav-arrow:hover svg {
+  transform: scale(1.25);
+  opacity: 0.95;
+}
+
+/* Scene Styling */
+h1.welcome {
+  font-size: 3rem;
+  font-weight: 900;
+  text-align: center;
+  margin-top: 10vh;
+}
+
+p.subtext {
+  font-size: 1.5rem;
+  color: grey;
+  font-style: italic;
+  opacity: 0.6;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+/* Fade animation */
+.fade-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw; height: 100vh;
+  background: #000;
+  opacity: 0;
+  transition: opacity 0.5s;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.fade-overlay.active {
+  opacity: 1;
+}
+
+/* Intro Full Screen Styling */
+#scene-container.intro {
+  background: black;
+  color: white;
+  text-align: center;
+  padding-top: 30vh;
+  white-space: pre;
+}
+
+/* Intro title text */
+.intro-title {
+  font-size: 4rem;
+  font-weight: bold;
+  font-family: monospace;
+  color: white;
+  margin-bottom: 2rem;
+}
+
+/* Typing phase font matches final layout */
+.typewriter-container {
+  padding: 2rem;
+  font-size: 1.5rem;
+  line-height: 1.6;
+  font-family: 'Courier New', monospace;
+  text-align: center;
+}
+
+.typewriter-text {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* Mobile Fixes */
+@media (max-width: 900px), (orientation: portrait) {
+  .page-container {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .nav-wrapper {
+    width: 100%;
+    height: 10vh;
+    justify-content: center;
+  }
+
+  .nav-arrow svg {
+    height: 6vh;
+  }
+
+  #scene-container {
+    padding: 1rem;
+    font-size: 1.2rem;
+  }
+
+  .intro-title {
+    font-size: 2.5rem;
+  }
 }
