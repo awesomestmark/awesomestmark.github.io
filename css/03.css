@@ -63,3 +63,25 @@ body {
   word-break: break-word;
   color: #ff00ff;
 }
+
+/* Intro Overlay */
+.intro-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #0f0f1a; /* Matches body background */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000; /* Above all other content */
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
+.intro-overlay.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
