@@ -72,27 +72,27 @@
           }
 
           .theme-01 .ad-box {
-            background: linear-gradient(135deg, #e0e0e0, #f0f0f0);
+            background: linear-gradient(135deg, #000000, #222222);
           }
           .theme-01 .freebitcoin-ad {
             font-family: 'Courier New', monospace;
-            background: linear-gradient(45deg, #333, #666);
-            color: #222;
+            background: linear-gradient(45deg, #ffcc00, #ffee00);
+            color: #000000;
           }
           .theme-01 .tooltip {
-            background: #333;
-            color: #fff;
+            background: #000000;
+            color: #ffcc00;
           }
           .theme-01.dark-mode .ad-box {
-            background: linear-gradient(135deg, #222, #444);
+            background: linear-gradient(135deg, #000000, #222222);
           }
           .theme-01.dark-mode .freebitcoin-ad {
-            background: linear-gradient(45deg, #aaa, #ddd);
-            color: #fff;
+            background: linear-gradient(45deg, #ffcc00, #ffee00);
+            color: #000000;
           }
           .theme-01.dark-mode .tooltip {
-            background: #222;
-            color: #ccc;
+            background: #000000;
+            color: #ffcc00;
           }
 
           .theme-02 .ad-box {
@@ -109,16 +109,16 @@
           }
 
           .theme-03 .ad-box {
-            background: linear-gradient(135deg, #1a002a, #2a004a);
+            background: linear-gradient(135deg, #000000, #222222);
           }
           .theme-03 .freebitcoin-ad {
             font-family: 'Orbitron', sans-serif;
-            background: linear-gradient(45deg, #ff00ff, #00ffff);
-            color: #0f0f1a;
+            background: linear-gradient(45deg, #ffcc00, #ffee00);
+            color: #000000;
           }
           .theme-03 .tooltip {
-            background: #0f0f1a;
-            color: #ff00ff;
+            background: #000000;
+            color: #ffcc00;
           }
 
           .theme-04 .ad-box {
