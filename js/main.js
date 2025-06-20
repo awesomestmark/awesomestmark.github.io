@@ -8,21 +8,17 @@ function runIntroSequence() {
   const container = document.getElementById("scene-container");
   container.innerHTML = "";
 
-  // Static Sound Setup
   const audio = new Audio("audio/static_intro.wav");
 
-  // Create title element (big bold intro)
   const titleElem = document.createElement("div");
   titleElem.className = "intro-title";
   container.appendChild(titleElem);
 
-  // Create container for typed scene content (below the title)
   const contentElem = document.createElement("div");
   contentElem.id = "main-content";
   contentElem.className = "typewriter-container";
   container.appendChild(contentElem);
 
-  // Type "WELCOME TO THE INTERNET"
   const titleText = "WELCOME TO THE INTERNET";
   let i = 0;
   audio.play();
@@ -33,6 +29,7 @@ function runIntroSequence() {
     if (i >= titleText.length) {
       clearInterval(interval);
       setTimeout(() => {
+        titleElem.remove(); // <-- remove the intro title here
         loadScene(currentScene, contentElem, 40);
       }, 1000);
     }
@@ -62,7 +59,6 @@ function loadScene(sceneNum, containerOverride = null, speedOverride = 20) {
       cycleAd();
       toggleTheme();
 
-      // Play static only once, after user click
       if (!hasPlayedStatic) {
         hasPlayedStatic = true;
         setTimeout(() => {
@@ -175,7 +171,7 @@ window.addEventListener("keydown", (e) => {
 const themeNum = Math.floor(Math.random() * 4) + 1;
 document.querySelector('link[rel=stylesheet]').href = `css/0${themeNum}.css`;
 
-document.getElementById("theme-switcher").addEventListener("change", (e) => {
+document.getElementById("theme-switcher")?.addEventListener("change", (e) => {
   const theme = e.target.value;
   const link = document.querySelector('link[rel=stylesheet]');
   link.href = `css/0${theme}.css`;
